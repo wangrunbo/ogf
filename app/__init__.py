@@ -26,14 +26,22 @@ csrf = CSRFProtect(app)
 # login_manager.session_protection = 'strong'
 
 
-# front
 # from app.view.home import home
 # from app.view.register import register
 # from app.view.mypage import mypage
 
+from .view.admin import admin
+
 # app.register_blueprint(home)
 # app.register_blueprint(register)
 # app.register_blueprint(mypage)
+
+app.register_blueprint(admin, url_prefix='/admin')
+
+
+
+
+
 
 # api
 # from app.view.api.db import data
