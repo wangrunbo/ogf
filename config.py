@@ -10,6 +10,10 @@ PERMANENT_SESSION_LIFETIME = 3600
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SQLALCHEMY_ECHO = False
 
+# Form
+WTF_CSRF_ENABLED = True
+WTF_CSRF_SECRET_KEY = '9\x0ct:\xa7.r\xbc\x9b\xd8\xa6\xec\xfb\x0c\x9e\xee\x98\xd4>x]N8\x06'
+
 # Mail
 MAIL_SERVER = 'smtp.gmail.com'
 MAIL_PORT = 465

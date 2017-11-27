@@ -1,7 +1,7 @@
 {% extends 'admin/layout.html' %}
 
-{% block title %}タイトル{% endblock %}
+{% block title %}系统{% endblock %}
 
 {% block body %}
-    system index
+<a href="{{ url_for('admin.catch_data') }}">数据</a>
 {% endblock %}

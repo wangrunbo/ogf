@@ -1,2 +1,1 @@
-from .LoginForm import LoginForm
-from .UserForm import UserForm
+from .CatchDataForm import CatchDataForm

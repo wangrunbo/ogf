@@ -1,7 +1,17 @@
 {% extends 'admin/layout.html' %}
 
-{% block title %}タイトル{% endblock %}
+{% block title %}数据{% endblock %}
 
 {% block body %}
-    system catch_data
+<form method="post" action="{{ url_for('admin.catch_data') }}">
+    {{ form.csrf_token }}
+    <dl>　
+        <dt>{{ form.item.label }}</dt>
+        <dd>{{ form.item }}</dd>
+
+        <dt>{{ form.channel.label }}</dt>
+        <dd>{{ form.channel }}</dd>
+    </dl>
+    <button type="button">获取</button>
+</form>
 {% endblock %}
