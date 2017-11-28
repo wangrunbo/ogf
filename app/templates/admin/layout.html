@@ -10,6 +10,8 @@
     {% block javascript %}{% endblock %}
 </head>
 <body>
+    {% from 'macros.html' import form_csrf, validation_errors %}
+
     {% block body %}{% endblock %}
 </body>
 </html>

@@ -28,7 +28,7 @@ class Class(db.Model):
     updated = db.Column(db.TIMESTAMP, nullable=False, server_default=db.text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))
     deleted = db.Column(db.TIMESTAMP, nullable=True, server_default=None)
 
-    def __init__(self, name):
+    def __init__(self, name, sort=None):
         self.name = name
         self.sort = self.last_sort + 1
 

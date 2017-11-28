@@ -47,7 +47,7 @@ class Servant(db.Model):
     np_charge_np = db.Column(db.Float, nullable=False)  # NP获取率(宝具)
     np_charge_def = db.Column(db.Float, nullable=False)  # NP获取率(防御)
     origin = db.Column(db.String(100), nullable=False)
-    growth_curve = db.Column(db.Integer, False)
+    growth_curve = db.Column(db.Integer, nullable=False)
     # TODO nick_name 昵称
     np_name = db.Column(db.String(100), nullable=False)  # 宝具名
     # np_name = db.Column(db.String(100), nullable=False)  # 宝具名(日文)

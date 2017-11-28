@@ -1,0 +1,40 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}数据{% endblock %}
+
+{% block javascript %}
+<script type="application/javascript" src="{{ url_for('static', filename='js/admin/generate_data.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<div id="create-db">
+    <form method="post" action="{{ url_for('admin.create_db') }}">
+        {{ form_csrf() }}
+        <button type="submit">生成数据库</button>
+    </form>
+</div>
+
+<div id="generate-data">
+    <form method="post" action="{{ url_for('admin.generate_data') }}">
+        {{ form_csrf() }}
+        <dl>　
+            <dt>数据</dt>
+            <dd>
+                <label><input name="item" value="英灵" type="checkbox" checked />英灵</label>
+                <label><input name="item" value="概念礼装" type="checkbox" checked />概念礼装</label>
+                <label><input name="item" value="材料" type="checkbox" checked />材料</label>
+                {{ validation_errors('item') }}
+            </dd>
+
+            <dt>途径</dt>
+            <dd>
+                <select name="channel" title="数据途径">
+                    <option value="fgowiki" selected>fgo wiki</option>
+                </select>
+                {{ validation_errors('channel') }}
+            </dd>
+        </dl>
+        <button type="submit">获取</button>
+    </form>
+</div>
+{% endblock %}

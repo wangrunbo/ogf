@@ -1,6 +1,9 @@
-{#フォームのバリエーションエラーを飛び出せる#}
-{% macro form_errors(field) %}
-    {% for error in field.errors %}
-        <span style="color: #ff0000; font-size: small;">{{ error }}</span>
-    {% endfor %}
+{# validation error #}
+{% macro validation_errors(field_name) %}
+    <span class="validation-{{ field_name }}" style="color: #ff0000; font-size: small;" hidden></span>
+{% endmacro %}
+
+{# csrf field #}
+{% macro form_csrf() %}
+    <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
 {% endmacro %}
