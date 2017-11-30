@@ -96,3 +96,5 @@ ENV/
 
 .idea/
 /test.py
+/app/tmp/*
+!/app/tmp/empty

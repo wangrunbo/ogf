@@ -1,11 +1,14 @@
 import requests
 import re
+import os
+import time
 
 from flask import Blueprint, request, render_template, redirect, url_for, json
 from app import db
 from app.model import *
 from app.util import validator
-
+from app.util.components import console_out
+import path
 
 admin = Blueprint('admin', __name__)
 
@@ -24,7 +27,7 @@ def system():
     return render_template('admin/system/index.html')
 
 
-@admin.route('/system/data', methods=['GET'])
+@admin.route('/system/data/', methods=['GET'])
 def system_data():
     """
     系统数据
@@ -33,7 +36,7 @@ def system_data():
     return render_template('admin/system/data.html')
 
 
-@admin.route('/system/data/create-db', methods=['POST'])
+@admin.route('/system/data/create-db/', methods=['POST'])
 def create_db():
     """
     生成数据库
@@ -44,7 +47,7 @@ def create_db():
     return redirect(url_for('admin.system_data'))
 
 
-@admin.route('/system/data/generate', methods=['POST'])
+@admin.route('/system/data/generate/', methods=['POST'])
 def generate_data():
     """
     加载数据
@@ -60,7 +63,7 @@ def generate_data():
         'item': {
             'data': item,
             'rules': [
-                validator.Rules.Required('请选择需要加载的数据', data=['英灵', '概念礼装', '材料'])
+                validator.Rules.Required('请选择需要加载的数据', data=['英灵', '概念礼装', '材料', '关卡'])
             ]
         },
         'channel': {
@@ -75,12 +78,18 @@ def generate_data():
         return json.jsonify(error_messages)
 
     # 开始加载
-    print('系统启动...')
-    print('开始加载基础信息...')
+    timeout = 30
+
+    console_file = os.path.join(path.TMP, 'console_' + request.form['token'])
+
+    console_out('系统启动...', console_file)
 
     try:
-        # 加载职介信息
-        print('职介信息开始加载...')
+        console_out('开始加载基础数据...', console_file)
+
+        # 加载职介数据
+        loaded = True  # 数据是否已全部加载
+        console_out('检查职介数据...', console_file)
 
         data = iter([
             'Saber', 'Lancer', 'Archer', 'Rider', 'Caster', 'Assassin', 'Berserker',
@@ -91,16 +100,22 @@ def generate_data():
             next(data)
 
         for name in data:
+            if loaded:
+                loaded = False
+                console_out('职介数据开始加载...', console_file)
+
             db.session.add(Class(name))
+            console_out(f'职介--{name}--加载完成！', console_file)
 
-            print(f'职介--{name}--加载完成！')
+        if loaded:
+            console_out('完成！', console_file)
+        else:
+            db.session.commit()
+            console_out('职介数据加载完成！', console_file)
 
-        db.session.commit()
-
-        print('职介信息加载完成！')
-
-        # 加载阵营信息
-        print('阵营信息开始加载...')
+        # 加载阵营数据
+        loaded = True  # 数据是否已全部加载
+        console_out('检查阵营数据...', console_file)
 
         data = iter(['天', '地', '人', '星', '兽'])
 
@@ -108,16 +123,22 @@ def generate_data():
             next(data)
 
         for name in data:
+            if loaded:
+                loaded = False
+                console_out('阵营数据开始加载...', console_file)
+
             db.session.add(Attribute(name))
+            console_out(f'阵营--{name}--加载完成！', console_file)
 
-            print(f'阵营--{name}--加载完成！')
+        if loaded:
+            console_out('完成！', console_file)
+        else:
+            db.session.commit()
+            console_out('阵营数据加载完成！', console_file)
 
-        db.session.commit()
-
-        print('阵营信息加载完成！')
-
-        # 加载性别信息
-        print('性别信息开始加载...')
+        # 加载性别数据
+        loaded = True  # 数据是否已全部加载
+        console_out('检查性别数据...', console_file)
 
         data = iter(['男性', '女性', '?', '-'])
 
@@ -125,16 +146,22 @@ def generate_data():
             next(data)
 
         for name in data:
+            if loaded:
+                loaded = False
+                console_out('性别数据开始加载...', console_file)
+
             db.session.add(Gender(name))
+            console_out(f'性别--{name}--加载完成！', console_file)
 
-            print(f'性别--{name}--加载完成！')
+        if loaded:
+            console_out('完成！', console_file)
+        else:
+            db.session.commit()
+            console_out('性别数据加载完成！', console_file)
 
-        db.session.commit()
-
-        print('性别信息加载完成！')
-
-        # 加载指令卡信息
-        print('指令卡信息开始加载...')
+        # 加载指令卡数据
+        loaded = True  # 数据是否已全部加载
+        console_out('检查指令卡数据...', console_file)
 
         data = iter(['Quick', 'Arts', 'Buster'])
 
@@ -142,39 +169,133 @@ def generate_data():
             next(data)
 
         for name in data:
+            if loaded:
+                loaded = False
+                console_out('指令卡数据开始加载...', console_file)
+
             db.session.add(CommandType(name))
+            console_out(f'指令卡--{name}--加载完成！', console_file)
 
-            print(f'指令卡--{name}--加载完成！')
+        if loaded:
+            console_out('完成！', console_file)
+        else:
+            db.session.commit()
+            console_out('指令卡数据加载完成！', console_file)
 
-        db.session.commit()
+        console_out('基础数据加载完成！', console_file)
 
-        print('指令卡信息加载完成！')
+        # 加载关卡数据
+        if '关卡' in item:
+            console_out('开始加载关卡数据...', console_file)
+            count = 0
 
-        print('基础信息加载完成！')
+            console_out(f'关卡数据加载完成，共加载了{count}份关卡数据！', console_file)
+
+        # 加载材料数据
+        if '材料' in item:
+            console_out('开始加载材料数据...', console_file)
+            count = 0
+
+            # 原数据清除
+            Item.query.delete()
+
+            url = 'http://fgowiki.com/guide/materialdetail/%d'
+
+            data_id = 0
+            while True:
+                data_id += 1
+
+                html = requests.get(url=url % data_id, timeout=timeout).content.decode('utf-8')
+
+                try:
+                    data = re.search(r'^var datadetail = (\[.*?\]);$', html, re.M).group(1)
+                    data = json.loads(data, encoding='utf-8')[0]
+                except IndexError:
+                    console_out(f"材料编号{data_id}未找到。", console_file)
+                    break
+
+                db.session.add(Item(
+                    id=data_id,
+                    name=data['NAME'],
+                    icon='http://file.fgowiki.fgowiki.com/mobile/images/Item/%s' % data['ICO'],
+                    description=data['ABOUT']
+                ))
+
+                count += 1
+
+                console_out(f"材料--{data['NAME']}：加载成功！", console_file)
+
+            db.session.commit()
+
+            console_out(f'材料数据加载完成，共加载了{count}份材料数据！', console_file)
+
+        # 加载概念礼装数据
+        if '概念礼装' in item:
+            console_out('开始加载概念礼装数据...', console_file)
+            count = 0
+
+            url = 'http://fgowiki.com/guide/equipdetail/%d'
+
+            data_id = 0
+            while True:
+                data_id += 1
+
+                html = requests.get(url=url % data_id, timeout=timeout).content.decode('utf-8')
+
+                try:
+                    data = re.search(r'^var datadetail = (\[.*?\]);$', html, re.M).group(1)
+                    data = json.loads(data, encoding='utf-8')[0]
+                except IndexError:
+                    console_out(f"材料编号{data_id}未找到。", console_file)
+                    break
+
+                db.session.add(CraftEssence(
+                    id=data_id,
+                    name=data['NAME_CN'],
+                    star=data['STAR'],
+                    icon='http://fgowiki.com/fgo/equip/%s.jpg' % str(data_id).zfill(3),
+                    image='http://file.fgowiki.fgowiki.com/fgo/card/equip/%sA.jpg' % str(data_id).zfill(3),
+                    atk=data['LV1_ATK'],
+                    max_atk=data['LVMAX_ATK'],
+                    hp=data['LV1_HP'],
+                    max_hp=data['LVMAX_HP'],
+                    effect=data['SKILL_E'],
+                    max_effect=data['SKILLMAX_E'],
+                    effect_icon='http://file.fgowiki.fgowiki.com/mobile/images/Skill/%s' % data['ICO'],
+                    description=data['INTRO']
+                ))
+
+                count += 1
+
+                console_out(f"概念礼装--{data['NAME_CN']}：加载成功！", console_file)
+
+            db.session.commit()
+
+            console_out(f'概念礼装数据加载完成，共加载了{count}件概念礼装数据！', console_file)
 
         # 加载英灵数据
         if '英灵' in item:
-            print('开始加载英灵数据...')
+            console_out('开始加载英灵数据...', console_file)
+            count = 0
 
             url = 'http://fgowiki.com/guide/petdetail/%d'
 
-            servant_id = 0
-            count = 0
+            data_id = 0
             while True:
-                servant_id += 1
+                data_id += 1
 
-                if Servant.query.get(servant_id) is not None:
+                if Servant.query.get(data_id) is not None:
                     continue
 
-                print(f"英灵编号{servant_id}：开始加载...")
+                console_out(f"英灵编号{data_id}：开始加载...", console_file)
 
-                html = requests.get(url=url % servant_id).content.decode('utf-8')
+                html = requests.get(url=url % data_id, timeout=timeout).content.decode('utf-8')
 
                 try:
                     data = re.search(r'^var datadetail = (\[.*?\]);$', html, re.M).group(1)
                     data = json.loads(data, encoding='utf-8')[0]
                 except AttributeError:
-                    print(f"英灵编号{servant_id}未找到。")
+                    console_out(f"英灵编号{data_id}未找到。", console_file)
                     break
 
                 # 性别
@@ -193,14 +314,14 @@ def generate_data():
                 np_name_en = np_name.group(2)
 
                 db.session.add(Servant(
-                    id=servant_id,
+                    id=data_id,
                     name=data['NAME'],
                     name_jp=data['NAME_JP'],
                     name_en=data['NAME_EN'],
                     cls=Class.query.filter_by(name=data['CLASS']).one(),
                     star=data['STAR'],
                     cost=data['COST'],
-                    icon=f"http://file.fgowiki.fgowiki.com/fgo/head/{str(servant_id).zfill(3)}.jpg",
+                    icon="http://file.fgowiki.fgowiki.com/fgo/head/%s.jpg" % str(data_id).zfill(3),
                     attribute=Attribute.query.filter_by(name=data['CAMP']).one(),
                     atk=data['LV1_ATK'],
                     max_atk=data['LVMAX4_ATK'],
@@ -244,29 +365,53 @@ def generate_data():
 
                 count += 1
 
-                print(f"英灵--{data['NAME']}--编号{servant_id}：加载成功！")
+                console_out(f"英灵--{data['NAME']}--编号{data_id}：加载成功！", console_file)
 
             db.session.commit()
 
-            print(f'英灵数据加载完成，共加载了{count}名英灵数据')
+            console_out(f'英灵数据加载完成，共加载了{count}名英灵数据！', console_file)
 
-        if '概念礼装' in item:
-            print('开始加载概念礼装数据...')
-
-        if '材料' in item:
-            print('开始加载材料数据...')
+    except requests.exceptions.ConnectionError:
+        console_out('连接超时！', console_file)
 
     except Exception as e:
-        error_messages = str(e)
-
-        print('异常：' + error_messages)
+        console_out('异常：' + str(e), console_file)
 
     else:
-        print('数据加载完成！')
+        console_out('数据加载完成！', console_file)
 
-    print('系统中止！')
+    console_out('系统中止！', console_file)
 
     return json.jsonify(error_messages)
 
 
+@admin.route('/system/data/generate/status/', methods=['POST'])
+def generate_console():
+    timeout = 60
 
+    line = int(request.form['line'])
+    console_file = os.path.join(path.TMP, 'console_' + request.form['token'])
+
+    if request.args.get('d') == '1':
+        os.remove(console_file)
+
+        return json.jsonify(None)
+    else:
+        start_time = time.time()
+
+        while True:
+            # 超时
+            if time.time() - start_time > timeout:
+                os.remove(console_file)
+
+                return json.jsonify(None)
+
+            if os.path.exists(console_file):
+                with open(console_file, 'r', encoding='utf-8') as file:
+                    output = file.readlines()
+
+                    if len(output) > line:
+                        return json.jsonify({
+                            'line': len(output),
+                            'messages': [message[:-1] for message in output[line::]]
+                        })

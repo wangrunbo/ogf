@@ -23,6 +23,7 @@
                 <label><input name="item" value="英灵" type="checkbox" checked />英灵</label>
                 <label><input name="item" value="概念礼装" type="checkbox" checked />概念礼装</label>
                 <label><input name="item" value="材料" type="checkbox" checked />材料</label>
+                <!--<label><input name="item" value="关卡" type="checkbox" checked />关卡</label>-->
                 {{ validation_errors('item') }}
             </dd>
 
@@ -36,5 +37,9 @@
         </dl>
         <button type="submit">获取</button>
     </form>
+</div>
+
+<div class="console" id="console" data-action="{{ url_for('admin.generate_console') }}" style="display: none;">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
 </div>
 {% endblock %}
