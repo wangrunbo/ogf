@@ -13,6 +13,32 @@
 <body>
     {% from 'macros.html' import form_csrf, validation_errors %}
 
+    <noscript>
+        <p>请将Javascript设置为有效！</p>
+    </noscript>
+
+    <header id="header">
+        <div class="menu">
+            <div class="logo"><a href="{{ url_for('admin.index') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="LOGO" /></a></div>
+        </div>
+
+        <ul>
+            <li><a href="{{ url_for('admin.servant') }}">英灵</a></li>
+            <li><a href="{{ url_for('admin.craft_essence') }}">概念礼装</a></li>
+            <li><a href="{{ url_for('admin.item') }}">材料</a></li>
+{#            <li><a href="{{ url_for('admin.map') }}">地图</a></li>#}
+{#            <li><a href="{{ url_for('admin.event') }}">活动相关</a></li>#}
+            <li><a href="{{ url_for('admin.system') }}">系统设置</a></li>
+        </ul>
+    </header>
+
     {% block body %}{% endblock %}
+
+    <footer id="footer">
+        <ul>
+            <li><a href="http://fgowiki.com/">Fate/Grand Order中文Wiki主题攻略站</a></li>
+            <li><a href="http://bbs.ngacn.cc/thread.php?fid=540&rand=272">NGA玩家社区</a></li>
+        </ul>
+    </footer>
 </body>
 </html>

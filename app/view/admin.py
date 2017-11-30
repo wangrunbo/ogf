@@ -15,7 +15,22 @@ admin = Blueprint('admin', __name__)
 
 @admin.route('/')
 def index():
-    return 'index'
+    return render_template('admin/index.html')
+
+
+@admin.route('/servant/')
+def servant():
+    return render_template('admin/servant/index.html')
+
+
+@admin.route('/craft-essence/')
+def craft_essence():
+    return render_template('admin/craft_essence/index.html')
+
+
+@admin.route('/item/')
+def item():
+    return render_template('admin/item/index.html')
 
 
 @admin.route('/system/', methods=['GET', 'POST'])
