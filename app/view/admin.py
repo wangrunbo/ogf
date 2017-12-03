@@ -18,18 +18,34 @@ def index():
     return render_template('admin/index.html')
 
 
-@admin.route('/servants/')
-def servants():
+@admin.route('/servant/', methods=['GET'])
+def servant_list():
+    servants = Servant.query.all()
+
+    print(servants)
+
+    return render_template('admin/servant/index.html', servants=servants)
+
+
+@admin.route('/servants/<servant_id>/view/', methods=['GET'])
+def servant_view(servant_id):
+    servant = Servant.query.get_or_404(servant_id)
+
     return render_template('admin/servant/index.html')
 
 
-@admin.route('/craft-essences/')
-def craft_essences():
+@admin.route('/servants/<servant_id>/edit/', methods=['POST'])
+def servant_edit(servant_id):
+    return render_template('admin/servant/index.html')
+
+
+@admin.route('/craft-essence/')
+def craft_essence_list():
     return render_template('admin/craft_essence/index.html')
 
 
-@admin.route('/items/')
-def items():
+@admin.route('/item/')
+def item_list():
     return render_template('admin/item/index.html')
 
 
