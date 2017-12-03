@@ -19,4 +19,4 @@ class StageLv(db.Model):
     servant = db.relationship('Servant', backref='stage_lv')
 
     def __repr__(self):
-        return '<%s%s %d: %s>' % (self.__class__.__name__, f'({self.__doc__})' if self.__doc__ is not None else str(), self.id, f'{self.servant.name} 阶段 {self.stage}')
+        return '<%s%s %d: %s>' % (self.__class__.__name__, '(%s)' % self.__doc__ if self.__doc__ is not None else str(), self.id, '%s 阶段 %d' % (self.servant.name, self.stage))

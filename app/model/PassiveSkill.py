@@ -21,4 +21,4 @@ class PassiveSkill(db.Model):
     servant = db.relationship('Servant', backref='passive_skills')
 
     def __repr__(self):
-        return '<%s%s %d: %s>' % (self.__class__.__name__, f'({self.__doc__})' if self.__doc__ is not None else str(), self.id, self.name)
+        return '<%s%s %d: %s>' % (self.__class__.__name__, '(%s)' % self.__doc__ if self.__doc__ is not None else str(), self.id, self.name)

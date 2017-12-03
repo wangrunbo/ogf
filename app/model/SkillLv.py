@@ -19,4 +19,4 @@ class SkillLv(db.Model):
     servant = db.relationship('Servant', backref='skill_lv')
 
     def __repr__(self):
-        return '<%s%s %d: %s>' % (self.__class__.__name__, f'({self.__doc__})' if self.__doc__ is not None else str(), self.id, f'{self.servant.name} Lv {self.level}')
+        return '<%s%s %d: %s>' % (self.__class__.__name__, '(%s)' % self.__doc__ if self.__doc__ is not None else str(), self.id, '%s Lv %d' % (self.servant.name, self.level))

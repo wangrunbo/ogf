@@ -1,7 +1,7 @@
-import requests
-import re
 import os
 import time
+import re
+import requests
 
 from flask import Blueprint, request, render_template, redirect, url_for, json
 from app import db
@@ -120,7 +120,7 @@ def generate_data():
                 console_out('职介数据开始加载...', console_file)
 
             db.session.add(Class(name))
-            console_out(f'职介--{name}--加载完成！', console_file)
+            console_out('职介--%s--加载完成！' % name, console_file)
 
         if loaded:
             console_out('完成！', console_file)
@@ -143,7 +143,7 @@ def generate_data():
                 console_out('阵营数据开始加载...', console_file)
 
             db.session.add(Attribute(name))
-            console_out(f'阵营--{name}--加载完成！', console_file)
+            console_out('阵营--%s--加载完成！' % name, console_file)
 
         if loaded:
             console_out('完成！', console_file)
@@ -166,7 +166,7 @@ def generate_data():
                 console_out('性别数据开始加载...', console_file)
 
             db.session.add(Gender(name))
-            console_out(f'性别--{name}--加载完成！', console_file)
+            console_out('性别--%s--加载完成！' % name, console_file)
 
         if loaded:
             console_out('完成！', console_file)
@@ -189,7 +189,7 @@ def generate_data():
                 console_out('指令卡数据开始加载...', console_file)
 
             db.session.add(CommandType(name))
-            console_out(f'指令卡--{name}--加载完成！', console_file)
+            console_out('指令卡--%s--加载完成！' % name, console_file)
 
         if loaded:
             console_out('完成！', console_file)
@@ -204,7 +204,7 @@ def generate_data():
             console_out('开始加载关卡数据...', console_file)
             count = 0
 
-            console_out(f'关卡数据加载完成，共加载了{count}份关卡数据！', console_file)
+            console_out('关卡数据加载完成，共加载了%d份关卡数据！' % count, console_file)
 
         # 加载材料数据
         if '材料' in item:
@@ -226,7 +226,7 @@ def generate_data():
                     data = re.search(r'^var datadetail = (\[.*?\]);$', html, re.M).group(1)
                     data = json.loads(data, encoding='utf-8')[0]
                 except IndexError:
-                    console_out(f"材料编号{data_id}未找到。", console_file)
+                    console_out("材料编号%d未找到。" % data_id, console_file)
                     break
 
                 db.session.add(Item(
@@ -238,11 +238,11 @@ def generate_data():
 
                 count += 1
 
-                console_out(f"材料--{data['NAME']}：加载成功！", console_file)
+                console_out("材料--%s：加载成功！" % data['NAME'], console_file)
 
             db.session.commit()
 
-            console_out(f'材料数据加载完成，共加载了{count}份材料数据！', console_file)
+            console_out('材料数据加载完成，共加载了%d份材料数据！' % count, console_file)
 
         # 加载概念礼装数据
         if '概念礼装' in item:
@@ -261,7 +261,7 @@ def generate_data():
                     data = re.search(r'^var datadetail = (\[.*?\]);$', html, re.M).group(1)
                     data = json.loads(data, encoding='utf-8')[0]
                 except IndexError:
-                    console_out(f"材料编号{data_id}未找到。", console_file)
+                    console_out("材料编号%d未找到。" % data_id, console_file)
                     break
 
                 db.session.add(CraftEssence(
@@ -282,11 +282,11 @@ def generate_data():
 
                 count += 1
 
-                console_out(f"概念礼装--{data['NAME_CN']}：加载成功！", console_file)
+                console_out("概念礼装--%s：加载成功！" % data['NAME_CN'], console_file)
 
             db.session.commit()
 
-            console_out(f'概念礼装数据加载完成，共加载了{count}件概念礼装数据！', console_file)
+            console_out('概念礼装数据加载完成，共加载了%d件概念礼装数据！' % count, console_file)
 
         # 加载英灵数据
         if '英灵' in item:
@@ -302,7 +302,7 @@ def generate_data():
                 if Servant.query.get(data_id) is not None:
                     continue
 
-                console_out(f"英灵编号{data_id}：开始加载...", console_file)
+                console_out("英灵编号%d：开始加载..." % data_id, console_file)
 
                 html = requests.get(url=url % data_id, timeout=timeout).content.decode('utf-8')
 
@@ -310,7 +310,7 @@ def generate_data():
                     data = re.search(r'^var datadetail = (\[.*?\]);$', html, re.M).group(1)
                     data = json.loads(data, encoding='utf-8')[0]
                 except AttributeError:
-                    console_out(f"英灵编号{data_id}未找到。", console_file)
+                    console_out("英灵编号%d未找到。" % data_id, console_file)
                     break
 
                 # 性别
@@ -380,11 +380,11 @@ def generate_data():
 
                 count += 1
 
-                console_out(f"英灵--{data['NAME']}--编号{data_id}：加载成功！", console_file)
+                console_out("英灵--%s--编号%d：加载成功！" % (data['NAME'], data_id), console_file)
 
             db.session.commit()
 
-            console_out(f'英灵数据加载完成，共加载了{count}名英灵数据！', console_file)
+            console_out('英灵数据加载完成，共加载了%d名英灵数据！' % count, console_file)
 
     except requests.exceptions.ConnectionError:
         console_out('连接超时！', console_file)

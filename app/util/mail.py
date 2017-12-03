@@ -20,7 +20,7 @@ def subject(sub):
     :param sub:
     :return:
     """
-    return f'「{Setting.get("SITE_NAME")}」{sub}'
+    return '「%s」%s' % (Setting.get('SITE_NAME'), sub)
 
 
 @async

@@ -30,7 +30,7 @@ class Setting(db.Model):
         self.comment = comment
 
     def __repr__(self):
-        return '<%s%s %d: %s>' % (self.__class__.__name__, f'({self.__doc__})' if self.__doc__ is not None else str(), self.id, self.key)
+        return '<%s%s %d: %s>' % (self.__class__.__name__, '(%s)' % self.__doc__ if self.__doc__ is not None else str(), self.id, self.key)
 
     @hybrid_property
     def value(self):

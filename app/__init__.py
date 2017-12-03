@@ -15,7 +15,7 @@ app = Flask(
 from .util import filter
 
 app.config.from_object('config')
-app.config.from_pyfile('config.py')
+app.config.from_pyfile('config.py', silent=True)
 
 
 # tools

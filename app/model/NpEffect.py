@@ -22,4 +22,4 @@ class NpEffect(db.Model):
     servant = db.relationship('Servant', backref='np_effects')
 
     def __repr__(self):
-        return '<%s%s %d: %s>' % (self.__class__.__name__, f'({self.__doc__})' if self.__doc__ is not None else str(), self.id, self.effect)
+        return '<%s%s %d: %s>' % (self.__class__.__name__, '(%s)' % self.__doc__ if self.__doc__ is not None else str(), self.id, self.effect)
