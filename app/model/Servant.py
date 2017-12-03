@@ -6,9 +6,9 @@ class Servant(db.Model):
     __tablename__ = 'servants'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(30), nullable=False)
-    name_jp = db.Column(db.String(30), nullable=False)
-    name_en = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    name_jp = db.Column(db.String(100), nullable=False)
+    name_en = db.Column(db.String(150), nullable=False)
     class_id = db.Column(db.SmallInteger, db.ForeignKey('class.id'), nullable=False)
     star = db.Column(db.SmallInteger, nullable=False)
     cost = db.Column(db.SmallInteger, nullable=False)
@@ -37,25 +37,36 @@ class Servant(db.Model):
     region = db.Column(db.String(30), nullable=False)  # 地域
     height = db.Column(db.String(100), nullable=False)
     weight = db.Column(db.String(100), nullable=False)
-    crit_generation = db.Column(db.Float, nullable=False)  # 掉星率
-    death_rate = db.Column(db.Float, nullable=False)  # 即死率
-    crit_absorption = db.Column(db.Float, nullable=False)  # 暴击权重
-    np_charge_quick = db.Column(db.Float, nullable=False)  # NP获取率(Quick)
-    np_charge_arts = db.Column(db.Float, nullable=False)  # NP获取率(Arts)
-    np_charge_buster = db.Column(db.Float, nullable=False)  # NP获取率(Buster)
-    np_charge_ex = db.Column(db.Float, nullable=False)  # NP获取率(EX)
-    np_charge_np = db.Column(db.Float, nullable=False)  # NP获取率(宝具)
-    np_charge_def = db.Column(db.Float, nullable=False)  # NP获取率(防御)
+    crit_generation = db.Column(db.String(30), nullable=False)  # 掉星率
+    death_rate = db.Column(db.String(30), nullable=False)  # 即死率
+    crit_absorption = db.Column(db.String(30), nullable=False)  # 暴击权重
+    np_charge_quick = db.Column(db.String(30), nullable=False)  # NP获取率(Quick)
+    np_charge_arts = db.Column(db.String(30), nullable=False)  # NP获取率(Arts)
+    np_charge_buster = db.Column(db.String(30), nullable=False)  # NP获取率(Buster)
+    np_charge_ex = db.Column(db.String(30), nullable=False)  # NP获取率(EX)
+    np_charge_np = db.Column(db.String(30), nullable=False)  # NP获取率(宝具)
+    np_charge_def = db.Column(db.String(30), nullable=False)  # NP获取率(防御)
     origin = db.Column(db.String(100), nullable=False)
     growth_curve = db.Column(db.Integer, nullable=False)
-    # TODO nick_name 昵称
     np_name = db.Column(db.String(100), nullable=False)  # 宝具名
-    # np_name = db.Column(db.String(100), nullable=False)  # 宝具名(日文)
+    # np_name_jp = db.Column(db.String(100), nullable=False)  # 宝具名(日文)
     np_name_en = db.Column(db.String(200), nullable=False)
     np_rank = db.Column(db.String(30), nullable=False)  # 宝具等级
     np_classification = db.Column(db.String(30), nullable=False)  # 宝具类型
-    np_type_id = db.Column(db.SmallInteger, db.ForeignKey('command_types.id'), nullable=False)  # 宝具卡色
-
+    np_type_id = db.Column(db.SmallInteger, db.ForeignKey('command_types.id'), nullable=True)  # 宝具卡色
+    qp_stage1 = db.Column(db.Integer, nullable=False)
+    qp_stage2 = db.Column(db.Integer, nullable=False)
+    qp_stage3 = db.Column(db.Integer, nullable=False)
+    qp_stage4 = db.Column(db.Integer, nullable=False)
+    qp_skill2 = db.Column(db.Integer, nullable=False)
+    qp_skill3 = db.Column(db.Integer, nullable=False)
+    qp_skill4 = db.Column(db.Integer, nullable=False)
+    qp_skill5 = db.Column(db.Integer, nullable=False)
+    qp_skill6 = db.Column(db.Integer, nullable=False)
+    qp_skill7 = db.Column(db.Integer, nullable=False)
+    qp_skill8 = db.Column(db.Integer, nullable=False)
+    qp_skill9 = db.Column(db.Integer, nullable=False)
+    qp_skill10 = db.Column(db.Integer, nullable=False)
     note = db.Column(db.Text, nullable=True, server_default=None)
     created = db.Column(db.TIMESTAMP, nullable=False, server_default=db.text('CURRENT_TIMESTAMP'))
     updated = db.Column(db.TIMESTAMP, nullable=False, server_default=db.text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))

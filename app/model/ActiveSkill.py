@@ -7,7 +7,7 @@ class ActiveSkill(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     servant_id = db.Column(db.Integer, db.ForeignKey('servants.id'), nullable=False)
-    name = db.Column(db.String(30), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     level = db.Column(db.String(10), nullable=False)  # 固有等级
     cool_down = db.Column(db.Integer, nullable=False)
     icon = db.Column(db.String(255), nullable=False)

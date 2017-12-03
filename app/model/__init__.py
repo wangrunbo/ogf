@@ -14,7 +14,7 @@ from .SkillEffect import SkillEffect
 from .PassiveSkill import PassiveSkill
 from .StageLv import StageLv
 from .SkillLv import SkillLv
-from .ServantNickNames import ServantNickName
+from .Alias import Alias
 
 from .CraftEssence import CraftEssence
 

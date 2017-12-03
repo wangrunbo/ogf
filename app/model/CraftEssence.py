@@ -6,7 +6,7 @@ class CraftEssence(db.Model):
     __tablename__ = 'craft_essences'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(30), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     star = db.Column(db.SmallInteger, nullable=False)
     icon = db.Column(db.String(255), nullable=False)
     image = db.Column(db.String(255), nullable=False)
