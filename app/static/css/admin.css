@@ -17,7 +17,6 @@ button {
     font-weight: bold;
     line-height: 120%;
     cursor: pointer;
-    vertical-align: bottom;
     transition: 0.1s ease-in-out;
     box-shadow: inset 0 2px rgba(255, 255, 255, 0.25), 0 1px 0 rgba(0, 0, 0, 0.25);
     -moz-box-shadow: inset 0 2px rgba(255, 255, 255, 0.25), 0 1px 0 rgba(0, 0, 0, 0.25);
@@ -109,6 +108,34 @@ td {
 
 td.icon {
     width: 6%;
+}
+
+div#search-box {
+    margin-bottom: 10px;
+    height: 32px;
+    float: right;
+    /*background: black*/
+}
+
+div#search-box form {
+    height: 100%;
+}
+
+div#search-box input {
+    height: 100%;
+    width: 230px;
+    font-size: 15px;
+    margin-right: 10px;
+    padding: 0;
+}
+
+div#search-box button {
+    background: url(../img/search.jpg)  center center no-repeat;
+    background-size: 100% 100%;
+    text-indent: -9999px;
+    height: 100%;
+    width: 32px;
+    padding: 0;
 }
 
 td.icon img {
