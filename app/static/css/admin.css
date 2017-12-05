@@ -23,6 +23,12 @@ button {
     -moz-box-shadow: inset 0 2px rgba(255, 255, 255, 0.25), 0 1px 0 rgba(0, 0, 0, 0.25);
 }
 
+button.edit {
+    font-size: 12px;
+    height: 100%;
+    width: 80%;
+}
+
 body {
     margin: 0 260px;
 }
@@ -99,7 +105,6 @@ tbody {
 
 td {
     height: 35px;
-    font-size: 14px;
 }
 
 td.icon {
@@ -118,9 +123,6 @@ td.name {
 }
 
 td.info button {
-    font-size: 12px;
-    height: 100%;
-    width: 80%;
     background-color: #22AC39;
 }
 
