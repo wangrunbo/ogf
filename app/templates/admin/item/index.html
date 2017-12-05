@@ -3,5 +3,38 @@
 {% block title %}材料{% endblock %}
 
 {% block body %}
-材料
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>th1</th>
+            <th>th2</th>
+            <th>th3</th>
+            <th>th4</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="icon"><img src="img/Sample.png" /></td>
+            <td class="name">ここはサンプルテキストです</td>
+            <td class="info"><button class="edit" type="button">100/100</button></td>
+            <td class="info"><button class="edit alert" type="button">0/100</button></td>
+            <td class="info"><button class="edit warning" type="button">50/100</button></td>
+        </tr>
+        <tr>
+            <td class="icon"><img src="img/Sample.png" /></td>
+            <td class="name">ここはサンプルテキストです</td>
+            <td class="info"><button class="edit warning" type="button">50/100</button></td>
+            <td class="info"><button class="edit" type="button">100/100</button></td>
+            <td class="info"><button class="edit alert" type="button">0/100</button></td>
+        </tr>
+        <tr>
+            <td class="icon"><img src="img/Sample.png" /></td>
+            <td class="name">ここはサンプルテキストです</td>
+            <td class="info"><button class="edit alert" type="button">0/100</button></td>
+            <td class="info"><button class="edit warning" type="button">50/100</button></td>
+            <td class="info"><button class="edit" type="button">100/100</button></td>
+        </tr>
+    </tbody>
+</table>
 {% endblock %}
