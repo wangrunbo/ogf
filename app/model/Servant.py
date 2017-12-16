@@ -1,4 +1,6 @@
 from app import db
+from .StageLv import StageLv
+from .SkillLv import SkillLv
 
 
 class Servant(db.Model):
@@ -79,3 +81,31 @@ class Servant(db.Model):
 
     def __repr__(self):
         return '<%s%s %d: %s>' % (self.__class__.__name__, '(%s)' % self.__doc__ if self.__doc__ is not None else str(), self.id, self.name)
+
+    @property
+    def stage_completed(self):
+        """
+        灵基再临资料登录完成数
+        :return: int
+        """
+        completed = 0
+
+        for stage in range(1, 5):
+            if StageLv.query.filter_by(servant=self, stage=stage).count() > 0:
+                completed += 1
+
+        return completed
+
+    @property
+    def skill_completed(self):
+        """
+        技能升级资料登录完成数
+        :return: int
+        """
+        completed = 0
+
+        for level in range(2, 10):
+            if SkillLv.query.filter_by(servant=self, level=level).count() > 0:
+                completed += 1
+
+        return completed

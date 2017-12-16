@@ -6,8 +6,9 @@
 
 {% block body %}
 <div id="search-box">
-    <form method="post" action="">
-        <input name="s" type="text" /><button type="submit">search</button>
+    <form method="get" action="{{ url_for('admin.servant_list') }}">
+        <input name="s" value="{{ request.args.get('s', '') }}" type="text" title="检索" />
+        <button type="submit">search</button>
     </form>
 </div>
 
@@ -15,34 +16,31 @@
     <thead>
         <tr>
             <th></th>
-            <th>th1</th>
-            <th>th2</th>
-            <th>th3</th>
-            <th>th4</th>
+            <th>姓名</th>
+            <th>灵基再临</th>
+            <th>技能</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td class="icon"><a href="#"><img src="img/Sample.png" /></a></td>
-            <td class="name">ここはサンプルテキストです</td>
-            <td class="info"><button class="edit" type="button">100/100</button></td>
-            <td class="info"><button class="edit alert" type="button">0/100</button></td>
-            <td class="info"><button class="edit warning" type="button">50/100</button></td>
-        </tr>
-        <tr>
-            <td class="icon"><a href="#"><img src="img/Sample.png" /></a></td>
-            <td class="name">ここはサンプルテキストです</td>
-            <td class="info"><button class="edit warning" type="button">50/100</button></td>
-            <td class="info"><button class="edit" type="button">100/100</button></td>
-            <td class="info"><button class="edit alert" type="button">0/100</button></td>
-        </tr>
-        <tr>
-            <td class="icon"><a href="#"><img src="img/Sample.png" /></a></td>
-            <td class="name">ここはサンプルテキストです</td>
-            <td class="info"><button class="edit alert" type="button">0/100</button></td>
-            <td class="info"><button class="edit warning" type="button">50/100</button></td>
-            <td class="info"><button class="edit" type="button">100/100</button></td>
-        </tr>
+        {% for servant in servants %}
+            {% set stage_completed = servant.stage_completed %}
+            {% set skill_completed = servant.skill_completed %}
+            <tr>
+                <td class="icon"><a href="{{ url_for('admin.servant_edit', servant_id=servant.id) }}"><img src="{{ servant.icon }}" /></a></td>
+                <td class="name"><a href="{{ url_for('admin.servant_edit', servant_id=servant.id) }}">{{ servant.name }}</a></td>
+                <td class="info">
+                    <button class="edit{% if stage_completed == 0 %} alert{% elif stage_completed < 4 %} warning{% endif %}" type="button">
+                        {{ stage_completed }}/4
+                    </button>
+                </td>
+                <td class="info">
+                    <button class="edit{% if skill_completed == 0 %} alert{% elif skill_completed < 3 %} warning{% endif %}" type="button">
+                        {{ skill_completed }}/3
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
     </tbody>
 </table>
+{{ render_pagination(pagination, 'admin.servant_list') }}
 {% endblock %}

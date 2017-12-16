@@ -20,22 +20,21 @@ def index():
 
 @admin.route('/servant/', methods=['GET'])
 def servant_list():
-    servants = Servant.query.all()
+    page = request.args.get('p', 1, int)
+    search = request.args.get('s')
 
-    print(servants)
+    pagination = Servant.query.paginate(page=page, per_page=20, error_out=False)
+    servants = pagination.items
 
-    return render_template('admin/servant/index.html', servants=servants)
+    return render_template('admin/servant/index.html', servants=servants, pagination=pagination)
 
 
-@admin.route('/servants/<servant_id>/view/', methods=['GET'])
-def servant_view(servant_id):
+@admin.route('/servants/<servant_id>/edit/', methods=['GET', 'POST'])
+def servant_edit(servant_id):
     servant = Servant.query.get_or_404(servant_id)
 
-    return render_template('admin/servant/index.html')
+    print(servant)
 
-
-@admin.route('/servants/<servant_id>/edit/', methods=['POST'])
-def servant_edit(servant_id):
     return render_template('admin/servant/index.html')
 
 

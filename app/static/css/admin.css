@@ -4,6 +4,11 @@ button, input, select, textarea{
     margin:0;
 }
 
+a {
+    text-decoration: none;
+    outline: none;
+}
+
 button {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -82,6 +87,46 @@ header .nav li a {
     display: block;
 }
 
+/* @pagination */
+.pagination {
+    margin-top: 40px;
+}
+
+.pagination ul {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination ul li {
+    margin: 5px;
+    list-style: none;
+}
+
+.pagination a {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background-color: #22AC39;
+    border-color: #22AC39;
+    color: #fff;
+}
+
+.pagination .active a {
+    background-color: #ddd;
+    color: #333;
+    pointer-events: none;
+}
+
+.pagination a.disabled {
+    color: #ddd;
+    pointer-events: none;
+}
+/* pagination end */
+
 main {
     background-color: blanchedalmond;
     padding: 0;
@@ -130,7 +175,7 @@ div#search-box input {
 }
 
 div#search-box button {
-    background: url(../img/search.jpg)  center center no-repeat;
+    background: url(../img/search.jpeg)  center center no-repeat;
     background-size: 100% 100%;
     text-indent: -9999px;
     height: 100%;
