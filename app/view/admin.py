@@ -33,9 +33,22 @@ def servant_list():
 def servant_edit(servant_id):
     servant = Servant.query.get_or_404(servant_id)
 
-    print(servant)
+    if request.method == 'POST':
 
-    return render_template('admin/servant/index.html')
+        return redirect(url_for('admin.servant_edit', servant_id=servant_id), 200)
+
+    return render_template(
+        'admin/servant/edit.html',
+        servant=servant,
+        classes=Class.query.all(),
+        attributes=Attribute.query.all(),
+        genders=Gender.query.all()
+    )
+
+
+@admin.route('/servants/<servant_id>/upload_icon/', methods=['POST'])
+def servant_upload_icon(servant_id):
+    return 'servant upload icon'
 
 
 @admin.route('/craft-essence/')

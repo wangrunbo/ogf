@@ -1,0 +1,345 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}英灵 | {{ servant.name }}{% endblock %}
+
+{% block page_id %}servant_edit{% endblock %}
+
+{% block body %}
+<div id="basic">
+    <h1>基本资料</h1>
+
+    {# 英灵头像 #}
+    <div id="icon">
+        <div><img src="{{ servant.icon }}" /></div>
+        <form method="post" action="{{ url_for('admin.servant_upload_icon', servant_id=servant.id) }}">
+            <input name="icon" type="file" />
+            <button type="button">上传</button>
+        </form>
+    </div>
+
+    <form method="post" action="{{ url_for('admin.servant_edit', servant_id=servant.id) }}">
+        <div id="name">
+            <label>
+                姓名
+                <input name="name" type="text"  />
+            </label>
+        </div>
+
+        <div id="name_jp">
+            <label>
+                姓名（JP）
+                <input name="name_jp" type="text" />
+            </label>
+        </div>
+
+        <div id="name_en">
+            <label>
+                姓名（EN）
+                <input name="name_en" type="text" />
+            </label>
+        </div>
+
+        <div id="class">
+            <label>
+                职介
+                <select name="class">
+                    {% for class in classes %}
+                        <option value="{{ class.name }}">{{ class.name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+
+        <div id="gender">
+            <label>
+                性别
+                <select name="gender">
+                    {% for gender in genders %}
+                        <option value="{{ gender.name }}">{{ gender.name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+
+        <div id="star">
+            <label>
+                稀有度
+                <select name="star">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </label>
+        </div>
+
+        <div id="cost">
+            <label>
+                消耗
+                <input name="cost" type="number" min="0" />
+            </label>
+        </div>
+
+        <div id="attribute">
+            <label>
+                阵营
+                <select name="attribute">
+                    {% for attribute in attributes %}
+                        <option value="{{ attribute.name }}">{{ attribute.name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+
+        <div id="atk">
+            <label>
+                ATK
+                <input name="atk" type="number" />
+            </label>
+        </div>
+
+        <div id="max_atk">
+            <label>
+                满破ATK
+                <input name="max_atk" type="number" />
+            </label>
+        </div>
+
+        <div id="atk_90">
+            <label>
+                90级ATK
+                <input name="atk_90" type="number" />
+            </label>
+        </div>
+
+        <div id="atk_100">
+            <label>
+                100级ATK
+                <input name="atk_100" type="number" />
+            </label>
+        </div>
+
+        <div id="hp">
+            <label>
+                HP
+                <input name="hp" type="number" />
+            </label>
+        </div>
+
+        <div id="max_hp">
+            <label>
+                满破HP
+                <input name="max_hp" type="number" />
+            </label>
+        </div>
+
+        <div id="hp_90">
+            <label>
+                90级HP
+                <input name="hp_90" type="number" />
+            </label>
+        </div>
+
+        <div id="hp_100">
+            <label>
+                100级HP
+                <input name="hp_100" type="number" />
+            </label>
+        </div>
+
+        <div id="quick">
+            <label>
+                Quick卡数
+                <input name="quick" type="number" min="0" max="5" />
+            </label>
+        </div>
+
+        <div id="arts">
+            <label>
+                Arts卡数
+                <input name="arts" type="number" min="0" max="5" />
+            </label>
+        </div>
+
+        <div id="buster">
+            <label>
+                Buster卡数
+                <input name="buster" type="number" min="0" max="5" />
+            </label>
+        </div>
+
+        <div id="hits_quick">
+            <label>
+                Quick卡Hit
+                <input name="hits_quick" type="number" min="0" />
+            </label>
+        </div>
+
+        <div id="hits_arts">
+            <label>
+                Arts卡Hit
+                <input name="hits_arts" type="number" min="0" />
+            </label>
+        </div>
+
+        <div id="hits_buster">
+            <label>
+                Buster卡Hit
+                <input name="hits_buster" type="number" min="0" />
+            </label>
+        </div>
+
+        <div id="hits_ex">
+            <label>
+                Ex卡Hit
+                <input name="hits_ex" type="number" min="0" />
+            </label>
+        </div>
+
+        <div id="illustrator">
+            <label>
+                画师
+                <input name="illustrator" type="text" />
+            </label>
+        </div>
+
+        <div id="cv">
+            <label>
+                CV
+                <input name="cv" type="text" />
+            </label>
+        </div>
+
+        <div id="alignment">
+            <label>
+                属性
+                <input name="alignment" type="text" />
+            </label>
+        </div>
+
+        <div id="region">
+            <label>
+                地域
+                <input name="region" type="text" />
+            </label>
+        </div>
+
+        <div id="height">
+            <label>
+                身高
+                <input name="height" type="text" />
+            </label>
+        </div>
+
+        <div id="weight">
+            <label>
+                体重
+                <input name="weight" type="text" />
+            </label>
+        </div>
+
+        <div id="crit_generation">
+            <label>
+                掉星率
+                <input name="crit_generation" type="text" />
+            </label>
+        </div>
+
+        <div id="death_rate">
+            <label>
+                即死率
+                <input name="death_rate" type="text" />
+            </label>
+        </div>
+
+        <div id="crit_absorption">
+            <label>
+                暴击权重
+                <input name="crit_absorption" type="text" />
+            </label>
+        </div>
+
+        <div id="np_charge_quick">
+            <label>
+                NP获取率（Quick）
+                <input name="np_charge_quick" type="text" />
+            </label>
+        </div>
+
+        <div id="np_charge_arts">
+            <label>
+                NP获取率（Arts）
+                <input name="np_charge_arts" type="text" />
+            </label>
+        </div>
+
+        <div id="np_charge_buster">
+            <label>
+                NP获取率（Buster）
+                <input name="np_charge_buster" type="text" />
+            </label>
+        </div>
+
+        <div id="np_charge_ex">
+            <label>
+                NP获取率（EX）
+                <input name="np_charge_ex" type="text" />
+            </label>
+        </div>
+
+        <div id="np_charge_np">
+            <label>
+                NP获取率（宝具）
+                <input name="np_charge_np" type="text" />
+            </label>
+        </div>
+
+        <div id="np_charge_def">
+            <label>
+                NP获取率（防御）
+                <input name="np_charge_def" type="text" />
+            </label>
+        </div>
+
+        <div id="origin">
+            <label>
+                出处
+                <input name="origin" type="text" />
+            </label>
+        </div>
+
+        <div id="growth_curve">
+            <label>
+                成长曲线
+                <input name="growth_curve" type="text" />
+            </label>
+        </div>
+
+        <div id="np">
+            <h1>宝具</h1>
+            <div>
+            </div>
+        </div>
+
+        <button class="submit" type="submit">更新</button>
+    </form>
+</div>
+
+<div id="stage">
+    <h1>灵基再临</h1>
+    <div>
+    </div>
+</div>
+
+<div id="skill">
+    <h1>技能</h1>
+    <div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}
