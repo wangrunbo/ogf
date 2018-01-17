@@ -42,7 +42,8 @@ def servant_edit(servant_id):
         servant=servant,
         classes=Class.query.all(),
         attributes=Attribute.query.all(),
-        genders=Gender.query.all()
+        genders=Gender.query.all(),
+        command_types=CommandType.query.all()
     )
 
 
