@@ -29,13 +29,9 @@ def servant_list():
     return render_template('admin/servant/index.html', servants=servants, pagination=pagination)
 
 
-@admin.route('/servants/<servant_id>/edit/', methods=['GET', 'POST'])
+@admin.route('/servants/<servant_id>/edit/', methods=['GET'])
 def servant_edit(servant_id):
     servant = Servant.query.get_or_404(servant_id)
-
-    if request.method == 'POST':
-
-        return redirect(url_for('admin.servant_edit', servant_id=servant_id), 200)
 
     return render_template(
         'admin/servant/edit.html',
@@ -45,6 +41,15 @@ def servant_edit(servant_id):
         genders=Gender.query.all(),
         command_types=CommandType.query.all()
     )
+
+
+@admin.route('/servants/<servant_id>/edit/basic', methods=['POST'])
+def servant_edit_basic(servant_id):
+    servant = Servant.query.get_or_404(servant_id)
+
+
+
+    return redirect(url_for('admin.servant_edit', servant_id=servant_id), 200)
 
 
 @admin.route('/servants/<servant_id>/upload_icon/', methods=['POST'])

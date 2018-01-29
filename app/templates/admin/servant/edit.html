@@ -317,42 +317,46 @@
             </label>
         </div>
 
-        <div id="np">
-            <h1>宝具</h1>
-            <div class="skill-t">
-                <div class="skill-t-hd">
-                    <div class="icon">
-                        <select name="np_type" title="宝具卡色">
-                            {% for command_type in command_types %}
-                                <option value="{{ command_type.name }}"{% if servant.np_type_id == command_type.id %} selected="selected"{% endif %}>{{ command_type.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="name">
-                        <input name="np_name" type="text" value="{{ servant.np_name }}" title="宝具名" />
-                        <input name="np_name_en" type="text" value="{{ servant.np_name_en }}" title="宝具名（EN）" />
-                    </div>
-                </div>
-                <div class="skill-t-ef">
-                    {% for np_effect in servant.np_effects %}
-                        <div class="skill-t-ef-ef">
-                            <input name="effect" value="{{ np_effect.effect }}" placeholder="效果" />
-                        </div>
-                        <div>
-                            <span>{{ np_effect.lv1 }}</span>
-                        </div>
-                    {% endfor %}
-                </div>
-                <button type="button">追加</button>
-            </div>
-        </div>
-
-        <div id="skill">
-            <h1>技能</h1>
-        </div>
-
         <button class="submit" type="submit" value="basic">更新</button>
     </form>
+</div>
+
+<div id="np">
+    <h1>宝具</h1>
+    <div class="skill-t">
+        <div class="skill-t-hd">
+            <div class="icon">
+                <select name="np_type" title="宝具卡色">
+                    {% for command_type in command_types %}
+                        <option value="{{ command_type.name }}"{% if servant.np_type_id == command_type.id %} selected="selected"{% endif %}>{{ command_type.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="name">
+                <input name="np_name" type="text" value="{{ servant.np_name }}" title="宝具名" />
+                <input name="np_name_en" type="text" value="{{ servant.np_name_en }}" title="宝具名（EN）" />
+            </div>
+        </div>
+        <div class="skill-t-ef">
+            {% for np_effect in servant.np_effects %}
+                <div class="skill-t-ef-ef">
+                    <input name="effect" value="{{ np_effect.effect }}" placeholder="效果" />
+                </div>
+                <div>
+                    <span>{{ np_effect.lv1 }}</span>
+                </div>
+            {% endfor %}
+        </div>
+        <button type="button">追加</button>
+    </div>
+</div>
+
+<div id="active_skill">
+    <h1>固有技能</h1>
+</div>
+
+<div id="passive_skill">
+    <h1>职介技能</h1>
 </div>
 
 <div id="stage">
