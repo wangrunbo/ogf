@@ -48,7 +48,8 @@ def servant_edit_basic(servant_id):
     servant = Servant.query.get_or_404(servant_id)
     data = {
         'name': request.form('name'),
-        'name_jp': request.form('name_jp')
+        'name_jp': request.form('name_jp'),
+        'name_en': request.form('name_en')
     }
 
     # TODO validation

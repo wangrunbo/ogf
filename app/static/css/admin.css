@@ -128,7 +128,6 @@ header .nav li a {
 /* pagination end */
 
 main {
-    display: flex;
     background-color: blanchedalmond;
     padding: 0;
 }
@@ -219,5 +218,7 @@ td.info button.warning {
 }
 
 /* servant edit */
-
+main#servant_edit {
+    display: flex;
+}
 /* servant edit end */
