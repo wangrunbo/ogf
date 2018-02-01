@@ -128,6 +128,7 @@ header .nav li a {
 /* pagination end */
 
 main {
+    display: flex;
     background-color: blanchedalmond;
     padding: 0;
 }
@@ -199,9 +200,24 @@ td.info button {
 }
 
 td.info button.alert {
-    background-color: red;
+    background-color: #ff0000;
 }
 
 td.info button.warning {
     background-color: goldenrod;
 }
+
+.sidebar {
+    height: 100%;
+    width: 18%;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.content {
+    margin-left: 36px;
+}
+
+/* servant edit */
+
+/* servant edit end */

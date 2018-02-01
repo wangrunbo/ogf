@@ -46,8 +46,12 @@ def servant_edit(servant_id):
 @admin.route('/servants/<servant_id>/edit/basic', methods=['POST'])
 def servant_edit_basic(servant_id):
     servant = Servant.query.get_or_404(servant_id)
+    data = {
+        'name': request.form('name'),
+        'name_jp': request.form('name_jp')
+    }
 
-
+    # TODO validation
 
     return redirect(url_for('admin.servant_edit', servant_id=servant_id), 200)
 
