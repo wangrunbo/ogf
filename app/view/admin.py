@@ -91,6 +91,7 @@ def create_db():
     生成数据库
     :return:
     """
+    # CREATE DATABASE fgo DEFAULT CHARACTER SET utf8;
     db.create_all()
 
     return redirect(url_for('admin.system_data'))
