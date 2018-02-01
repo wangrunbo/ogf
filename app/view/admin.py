@@ -143,7 +143,7 @@ def generate_data():
 
         data = iter([
             'Saber', 'Lancer', 'Archer', 'Rider', 'Caster', 'Assassin', 'Berserker',
-            'Avenger', 'Ruler', 'Shielder', 'Beast', 'Alterego', 'MoonCancer'
+            'Avenger', 'Ruler', 'Shielder', 'Beast', 'Alterego', 'MoonCancer', 'Foreigner'
         ])
 
         for i in range(0, Class.query.count()):

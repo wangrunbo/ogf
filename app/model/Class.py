@@ -19,6 +19,7 @@ class Class(db.Model):
     Beast = 11
     Alterego = 12
     MoonCancer = 13
+    Foreigner = 14
 
     id = db.Column(db.SmallInteger, primary_key=True)
     name = db.Column(db.String(255), nullable=False, unique=True)
