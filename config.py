@@ -7,6 +7,7 @@ SECRET_KEY = '\x1b\xae\xa6\xe2\x97\t\xe4\\\x12v\xf6B\x1a!E\xd5\xdcL\xb3T\xe6?\xd
 PERMANENT_SESSION_LIFETIME = 3600
 
 # DataResource
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://username:password@host/db?charset=utf8'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SQLALCHEMY_ECHO = False
 
