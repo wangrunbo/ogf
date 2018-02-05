@@ -65,26 +65,25 @@ header .nav {
 header .nav ul {
     float: right;
     height: 100%;
-    margin: 0;
+    font-size: 0;
+    margin: 0 10px 0 0;
 }
 
 header .nav li {
     height: 100%;
-    margin-right: 10px;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -o-box;
-    display: -ms-box;
-    display: box;
-    -webkit-box-align: center;
-    -moz-box-align: center;
-    -o-box-align: center;
-    -ms-box-align: center;
-    box-align: center;
+    display: inline-block;
+    font-size: 17px;
+}
+
+header .nav li:hover {
+    background-color: #f5f5f5;
 }
 
 header .nav li a {
     display: block;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 /* @pagination */
