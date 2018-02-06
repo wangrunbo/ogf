@@ -32,6 +32,9 @@ def servant_list():
 @admin.route('/servants/<servant_id>/edit/', methods=['GET'])
 def servant_edit(servant_id):
     servant = Servant.query.get_or_404(servant_id)
+    # stage_lv = StageLv.query.filter_by(servant=servant)
+
+    items = Item.query.all()
 
     return render_template(
         'admin/servant/edit.html',
@@ -39,8 +42,14 @@ def servant_edit(servant_id):
         classes=Class.query.all(),
         attributes=Attribute.query.all(),
         genders=Gender.query.all(),
-        command_types=CommandType.query.all()
+        command_types=CommandType.query.all(),
+        items=items
     )
+
+
+@admin.route('/servants/<servant_id>/upload_icon/', methods=['POST'])
+def servant_upload_icon(servant_id):
+    return 'servant upload icon'
 
 
 @admin.route('/servants/<servant_id>/edit/basic', methods=['POST'])
@@ -55,11 +64,6 @@ def servant_edit_basic(servant_id):
     # TODO validation
 
     return redirect(url_for('admin.servant_edit', servant_id=servant_id), 200)
-
-
-@admin.route('/servants/<servant_id>/upload_icon/', methods=['POST'])
-def servant_upload_icon(servant_id):
-    return 'servant upload icon'
 
 
 @admin.route('/craft-essence/')

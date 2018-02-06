@@ -9,10 +9,10 @@
     {# 英灵头像 #}
     <div id="icon">
         <div><img src="{{ servant.icon }}" /></div>
-        <form method="post" action="{{ url_for('admin.servant_upload_icon', servant_id=servant.id) }}">
-            <input name="icon" type="file" />
-            <button type="button">上传</button>
-        </form>
+{#        <form method="post" action="{{ url_for('admin.servant_upload_icon', servant_id=servant.id) }}">#}
+{#            <input name="icon" type="file" />#}
+{#            <button type="button">上传</button>#}
+{#        </form>#}
     </div>
 
     <div class="menu">
@@ -28,7 +28,7 @@
 </div>
 
 <div class="content">
-    <div id="basic" class="">
+    <div id="basic" class="workplace">
         <h1>基本资料</h1>
         <form method="post" action="{{ url_for('admin.servant_edit_basic', servant_id=servant.id) }}">
             <div id="name">
@@ -330,12 +330,13 @@
                 </label>
             </div>
 
-            <button class="submit" type="submit" value="basic">更新</button>
+{#            <button class="submit" type="submit" value="basic">更新</button>#}
         </form>
     </div>
 
-    <div id="np">
+    <div id="np" class="workplace">
         <h1>宝具</h1>
+{#        <button type="button">更新</button>#}
         <div class="skill-t">
             <div class="skill-t-hd">
                 <div class="icon">
@@ -360,25 +361,72 @@
                     </div>
                 {% endfor %}
             </div>
-            <button type="button">追加</button>
+
         </div>
     </div>
 
-    <div id="active_skill">
-        <h1>固有技能</h1>
-    </div>
+    <div id="active_skill" class="workplace">
+        <div class="workplace-title">
+            <h1>固有技能</h1>
+{#            <button type="button">更新</button>#}
+        </div>
 
-    <div id="passive_skill">
-        <h1>职介技能</h1>
-    </div>
-
-    <div id="stage">
-        <h1>灵基再临</h1>
-        <div>
+        <div class="workplace-content">
+            {% for active_skill in servant.active_skills %}
+                {{ active_skill.name }}
+            {% endfor %}
         </div>
     </div>
 
-    <div id="skill_lv">
+    <div id="passive_skill" class="workplace">
+        <div class="workplace-title">
+            <h1>职介技能</h1>
+{#            <button type="button">更新</button>#}
+        </div>
+
+        <div class="workplace-content">
+            {% for passive_skill in servant.passive_skills %}
+                {{ passive_skill.name }}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="stage" class="workplace">
+        <div class="workplace-title">
+            <h1>灵基再临</h1>
+            <button type="button">更新</button>
+        </div>
+
+        <div class="workplace-content">
+            <div>
+                <div>
+                    <button type="button">灵基再临Ⅰ</button>
+                    <button type="button">灵基再临Ⅱ</button>
+                    <button type="button">灵基再临Ⅲ</button>
+                    <button type="button">最终再临</button>
+                </div>
+
+                <div>
+
+                </div>
+
+                <div>
+                    <button type="button">+</button>
+                    <div>
+                        <input type="text" />
+                        <div>
+                            {% for item in items %}
+                                <img src="{{ item.icon }}" />
+                                {{ item.name }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="skill_lv" class="workplace">
         <h1>技能提升</h1>
         <div>
 
