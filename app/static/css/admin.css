@@ -33,6 +33,10 @@ button.edit {
     width: 80%;
 }
 
+ul {
+    list-style:none;
+}
+
 body {
     margin: 0 260px;
 }
@@ -98,7 +102,6 @@ header .nav li a {
 
 .pagination ul li {
     margin: 5px;
-    list-style: none;
 }
 
 .pagination a {
@@ -210,6 +213,15 @@ td.info button.warning {
     width: 18%;
     padding-top: 20px;
     padding-left: 20px;
+}
+
+.sidebar ul {
+    padding-left: 0;
+}
+
+.sidebar a {
+    display: block;
+    width: 100%;
 }
 
 .content {
