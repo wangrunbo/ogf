@@ -49,6 +49,7 @@ def servant_edit(servant_id):
 
 @admin.route('/servants/<servant_id>/upload_icon/', methods=['POST'])
 def servant_upload_icon(servant_id):
+    servant = Servant.query.get_or_404(servant_id)
     return 'servant upload icon'
 
 

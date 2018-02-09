@@ -407,7 +407,18 @@
                 </div>
 
                 <div>
+                    <div>
+                        <img src="{{ url_for('static', filename='img/items/qp.png') }}" alt="QP" />
+                        <input name="qp_stage1" value="{{ servant.qp_stage1 }}" data-value="{{ servant.qp_stage1 }}" type="number" min="0" step="5000" />
+                    </div>
 
+                    <div>
+                        {% for i in range(1, 6) %}
+                            <div>
+
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
 
                 <div>
