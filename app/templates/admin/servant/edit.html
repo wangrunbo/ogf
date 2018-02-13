@@ -2,6 +2,9 @@
 
 {% block title %}英灵 | {{ servant.name }}{% endblock %}
 
+{% block javascript %}
+{% endblock %}
+
 {% block page_id %}servant_edit{% endblock %}
 
 {% block body %}
@@ -407,7 +410,7 @@
                 </div>
 
                 {% for lv in range(1, 5) %}
-                    <div id="stage-lv{{ lv }}">
+                    <div class="block" id="stage-lv{{ lv }}">
                         <div>
                             <img src="{{ url_for('static', filename='img/items/qp.png') }}" alt="QP" />
                             <input name="qp_stage{{ lv }}" value="{{ servant['qp_stage' ~ lv] }}" data-value="{{ servant['qp_stage' ~ lv] }}" type="number" min="0" step="5000" />
@@ -417,21 +420,19 @@
                             <table>
                                 <tbody>
                                 <tr>
-                                    {% for i in range(1, 6) %}
+                                    {% for i in range(0, 5) %}
                                         <td>
-                                            {% if i <= stage_lv[lv - 1]|length %}
-                                                {{ i }}個
-                                            {% else %}
-                                                <img src="" />
+                                            {% if i < stage_lv[lv - 1]|length %}
+                                                <img src="{{ stage_lv[lv - 1][i].item.icon }}" />
                                             {% endif %}
                                             <input name="item_id" type="hidden" />
                                         </td>
                                     {% endfor %}
                                 </tr>
                                 <tr>
-                                    {% for i in range(1, 6) %}
+                                    {% for i in range(0, 5) %}
                                         <td>
-                                            {% if i <= stage_lv[lv - 1]|length %}
+                                            {% if i < stage_lv[lv - 1]|length %}
                                                 <label>
                                                     数量<input name="quantity" type="number" min="1" />
                                                 </label>

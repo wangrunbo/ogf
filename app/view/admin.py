@@ -41,8 +41,8 @@ def servant_edit(servant_id):
     return render_template(
         'admin/servant/edit.html',
         servant=servant,
-        stage_lv=[[stage_lv for stage_lv in servant.stage_lv if stage_lv.stage == lv] for lv in range(0, 4)],
-        skill_lv=[[skill_lv for skill_lv in servant.skill_lv if skill_lv.stage == lv] for lv in range(0, 9)],
+        stage_lv=[[stage_lv for stage_lv in servant.stage_lv if stage_lv.stage == lv] for lv in range(1, 5)],
+        skill_lv=[[skill_lv for skill_lv in servant.skill_lv if skill_lv.stage == lv] for lv in range(2, 11)],
         classes=Class.query.all(),
         attributes=Attribute.query.all(),
         genders=Gender.query.all(),
@@ -64,7 +64,10 @@ def servant_edit_basic(servant_id):
         'name': request.form('name'),
         'name_jp': request.form('name_jp'),
         'name_en': request.form('name_en'),
-        'class_id': request.form('class_id')
+        'class_id': request.form('class_id'),
+        'star': request.form('star'),
+        'cost': request.form('cost'),
+        'attribute_id': request.form('attribute_id'),
     }
 
     # TODO validation
