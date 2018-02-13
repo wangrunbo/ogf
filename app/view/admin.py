@@ -31,19 +31,23 @@ def servant_list():
 
 @admin.route('/servants/<servant_id>/edit/', methods=['GET'])
 def servant_edit(servant_id):
-    servant = Servant.query.get_or_404(servant_id)
-    # stage_lv = StageLv.query.filter_by(servant=servant)
+    """
 
-    items = Item.query.all()
+    :param servant_id:
+    :return:
+    """
+    servant = Servant.query.get_or_404(servant_id)
 
     return render_template(
         'admin/servant/edit.html',
         servant=servant,
+        stage_lv=[[stage_lv for stage_lv in servant.stage_lv if stage_lv.stage == lv] for lv in range(0, 4)],
+        skill_lv=[[skill_lv for skill_lv in servant.skill_lv if skill_lv.stage == lv] for lv in range(0, 9)],
         classes=Class.query.all(),
         attributes=Attribute.query.all(),
         genders=Gender.query.all(),
         command_types=CommandType.query.all(),
-        items=items
+        items=Item.query.all()
     )
 
 
@@ -59,7 +63,8 @@ def servant_edit_basic(servant_id):
     data = {
         'name': request.form('name'),
         'name_jp': request.form('name_jp'),
-        'name_en': request.form('name_en')
+        'name_en': request.form('name_en'),
+        'class_id': request.form('class_id')
     }
 
     # TODO validation
