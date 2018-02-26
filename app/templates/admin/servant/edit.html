@@ -403,14 +403,14 @@
         <div class="workplace-content">
             <div>
                 <div class="tab">
-                    <button type="button">灵基再临Ⅰ</button>
+                    <button class="active" type="button">灵基再临Ⅰ</button>
                     <button type="button">灵基再临Ⅱ</button>
                     <button type="button">灵基再临Ⅲ</button>
                     <button type="button">最终再临</button>
                 </div>
 
                 {% for lv in range(1, 5) %}
-                    <div class="block" id="stage-lv{{ lv }}">
+                    <div class="block{% if lv == 1 %} active{% endif %}" id="stage-lv{{ lv }}">
                         <div>
                             <img src="{{ url_for('static', filename='img/items/qp.png') }}" alt="QP" />
                             <input name="qp_stage{{ lv }}" value="{{ servant['qp_stage' ~ lv] }}" data-value="{{ servant['qp_stage' ~ lv] }}" type="number" min="0" step="5000" />

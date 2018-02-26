@@ -255,13 +255,10 @@ main#servant_edit {
 
 .tab {
     overflow: hidden;
-    border: 1px solid #ccc;
-    border-bottom: none;
-    background-color: #f1f1f1;
+    border: none;
 }
 
 .tab button {
-    background-color: inherit;
     float: left;
     border: none;
     outline: none;
@@ -286,6 +283,10 @@ main#servant_edit {
     border: 1px solid #ccc;
     border-top: none;
     border-top: none;
+}
+
+.block.active {
+    display: block;
 }
 
 /* servant edit end */
