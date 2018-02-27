@@ -3,6 +3,11 @@
 {% block title %}英灵 | {{ servant.name }}{% endblock %}
 
 {% block javascript %}
+    <script type="application/javascript">
+        var stage_lv = {
+
+        };
+    </script>
 {% endblock %}
 
 {% block page_id %}servant_edit{% endblock %}
@@ -394,70 +399,72 @@
         </div>
     </div>
 
-    <div id="stage" class="workplace">
+    <div id="stage" class="workplace item-block">
         <div class="workplace-title">
             <h1>灵基再临</h1>
             <button type="button">更新</button>
         </div>
 
         <div class="workplace-content">
-            <div>
-                <div class="tab">
-                    <button class="active" type="button">灵基再临Ⅰ</button>
-                    <button type="button">灵基再临Ⅱ</button>
-                    <button type="button">灵基再临Ⅲ</button>
-                    <button type="button">最终再临</button>
-                </div>
+            <div class="tab">
+                <button class="active" type="button">灵基再临Ⅰ</button>
+                <button type="button">灵基再临Ⅱ</button>
+                <button type="button">灵基再临Ⅲ</button>
+                <button type="button">最终再临</button>
+            </div>
 
-                {% for lv in range(1, 5) %}
-                    <div class="block{% if lv == 1 %} active{% endif %}" id="stage-lv{{ lv }}">
-                        <div>
-                            <img src="{{ url_for('static', filename='img/items/qp.png') }}" alt="QP" />
-                            <input name="qp_stage{{ lv }}" value="{{ servant['qp_stage' ~ lv] }}" data-value="{{ servant['qp_stage' ~ lv] }}" type="number" min="0" step="5000" />
-                        </div>
-
-                        <div>
-                            <table>
-                                <tbody>
-                                <tr>
-                                    {% for i in range(0, 5) %}
-                                        <td>
-                                            {% if i < stage_lv[lv - 1]|length %}
-                                                <img src="{{ stage_lv[lv - 1][i].item.icon }}" />
-                                            {% endif %}
-                                            <input name="item_id" type="hidden" />
-                                        </td>
-                                    {% endfor %}
-                                </tr>
-                                <tr>
-                                    {% for i in range(0, 5) %}
-                                        <td>
-                                            {% if i < stage_lv[lv - 1]|length %}
-                                                <label>
-                                                    数量<input name="quantity" type="number" min="1" />
-                                                </label>
-                                                <button type="button">○</button>
-                                                <button type="button">×</button>
-                                            {% endif %}
-                                        </td>
-                                    {% endfor %}
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+            {% for lv in range(1, 5) %}
+                <div class="block{% if lv == 1 %} active{% endif %}" id="stage-lv{{ lv }}">
+                    <div class="container-head">
+                        <img src="{{ url_for('static', filename='img/items/qp.png') }}" alt="QP" />
+                        <input name="qp_stage{{ lv }}" value="{{ servant['qp_stage' ~ lv] }}" data-value="{{ servant['qp_stage' ~ lv] }}" type="number" min="0" step="5000" />
                     </div>
-                {% endfor %}
 
+                    <div class="container-body">
+                        <table>
+                            <tbody>
+                            <tr>
+                                {% for i in range(0, 5) %}
+                                    <td>
+                                        {% if i < stage_lv[lv - 1]|length %}
+                                            <img src="{{ stage_lv[lv - 1][i].item.icon }}" />
+                                            <input name="item_id" type="hidden" />
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                {% for i in range(0, 5) %}
+                                    <td>
+                                        {% if i < stage_lv[lv - 1]|length %}
+                                            <div>
+                                                <label>
+                                                    数量<input name="quantity" value="{{ stage_lv[lv - 1][i].quantity }}" type="number" min="1" />
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <button class="access disabled" type="button" disabled>○</button>
+                                                <button class="delete" type="button">×</button>
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div>
+                <button type="button">+</button>
                 <div>
-                    <button type="button">+</button>
+                    <input type="text" />
                     <div>
-                        <input type="text" />
-                        <div>
-                            {% for item in items %}
-                                <img src="{{ item.icon }}" />
-                                {{ item.name }}
-                            {% endfor %}
-                        </div>
+                        {% for item in items %}
+                            <img src="{{ item.icon }}" />
+                            {{ item.name }}
+                        {% endfor %}
                     </div>
                 </div>
             </div>

@@ -68,6 +68,17 @@ def servant_edit_basic(servant_id):
         'star': request.form('star'),
         'cost': request.form('cost'),
         'attribute_id': request.form('attribute_id'),
+        'atk': request.form('atk'),
+        'max_atk': request.form('max_atk'),
+        'atk_90': request.form('atk_90'),
+        'atk_100': request.form('atk_100'),
+        'hp': request.form('hp'),
+        'max_hp': request.form('max_hp'),
+        'hp_90': request.form('hp_90'),
+        'hp_100': request.form('hp_100'),
+        'quick': request.form('quick'),
+        'arts': request.form('arts'),
+        'buster': request.form('buster'),
     }
 
     # TODO validation

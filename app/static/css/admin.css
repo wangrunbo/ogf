@@ -33,6 +33,18 @@ button.edit {
     width: 80%;
 }
 
+button.access {
+    background-color: #40dd33;
+}
+
+button.delete {
+    background-color: #dd1d1d;
+}
+
+button.disabled {
+    background-color: #474a41;
+}
+
 ul {
     list-style:none;
 }
@@ -256,6 +268,7 @@ main#servant_edit {
 .tab {
     overflow: hidden;
     border: none;
+    width: 100%;
 }
 
 .tab button {
@@ -266,27 +279,83 @@ main#servant_edit {
     padding: 14px 16px;
     transition: 0.3s;
     font-size: 17px;
+    margin-left: 10px;
 }
 
 .tab button:hover {
-    background-color: #ddd;
+    background-color: #2edddd;
 }
 
 .tab button.active {
-    background-color: #ccc;
+    background-color: #25cc4d;
     border-bottom: none;
 }
 
 .block {
     display: none;
-    padding: 6px 12px;
+    margin-top: 10px;
+    padding: 20px 20px;
     border: 1px solid #ccc;
-    border-top: none;
-    border-top: none;
 }
 
 .block.active {
     display: block;
+}
+
+.item-block .container-head {
+    height: 26px;
+}
+
+.item-block .container-head img {
+    height: 100%;
+    width: auto;
+}
+
+.item-block .container-head input {
+    padding: 0;
+    vertical-align: super;
+}
+
+.item-block .container-body {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.block table {
+    width: 80%;
+}
+
+.block table td {
+    width: 20%;
+    padding: 10px;
+    text-align: center;
+}
+
+.block table td img {
+    width: 80px;
+    height: auto;
+}
+
+.block table td div {
+    padding-bottom: 0;
+}
+
+.block table td label {
+    font-size: 13px;
+}
+
+.block table td input {
+    width: 60%;
+    height: 13px;
+    margin-left: 4px;
+}
+
+.block table td button {
+    margin-top: 10px;
+    width: 45%;
+    height: 19px;
+    font-size: 100%;
+    padding: 0;
 }
 
 /* servant edit end */
