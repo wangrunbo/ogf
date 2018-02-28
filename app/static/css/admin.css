@@ -240,9 +240,26 @@ td.info button.warning {
     margin-left: 36px;
 }
 
+.button-container {
+    height: 19px;
+}
+
+.button-container button {
+    margin-top: 10px;
+    width: 45%;
+    height: 100%;
+    font-size: 100%;
+    padding: 0;
+}
+
 /* servant edit */
 main#servant_edit {
     display: flex;
+}
+
+.workplace {
+    clear: both;
+    margin-top: 10px;
 }
 
 .workplace-title {
@@ -279,7 +296,7 @@ main#servant_edit {
     padding: 14px 16px;
     transition: 0.3s;
     font-size: 17px;
-    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .tab button:hover {
@@ -350,12 +367,39 @@ main#servant_edit {
     margin-left: 4px;
 }
 
-.block table td button {
+.block table td .button-container {
+    padding-bottom: 10px;
+}
+
+.container {
     margin-top: 10px;
-    width: 45%;
-    height: 19px;
-    font-size: 100%;
-    padding: 0;
+}
+
+.item-container {
+    width: 11%;
+    height: auto;
+    margin-right: 10px;
+    padding: 5px;
+    text-align: center;
+    display: inline-block;
+    vertical-align:top;
+}
+
+.item-container img {
+    width: 100%;
+    height: auto;
+    border: transparent solid 4px;
+    transition: 0.3s;
+}
+
+.item-container img:hover {
+    cursor: pointer;
+    border-color: #50ddc4;
+}
+
+.item-container p {
+    height: 18px;
+    font-size: 3vh;
 }
 
 /* servant edit end */

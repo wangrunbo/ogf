@@ -79,6 +79,12 @@ def servant_edit_basic(servant_id):
         'quick': request.form('quick'),
         'arts': request.form('arts'),
         'buster': request.form('buster'),
+        'hits_quick': request.form('hits_quick'),
+        'hits_arts': request.form('hits_arts'),
+        'hits_buster': request.form('hits_buster'),
+        'hits_ex': request.form('hits_ex'),
+        'illustrator': request.form('illustrator'),
+        'cv': request.form('cv'),
     }
 
     # TODO validation
