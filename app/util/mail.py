@@ -3,7 +3,7 @@ from flask_mail import Message
 from app import app, mail
 from app.model import Setting
 from .security import ts
-from .components import async
+from .wrapper import async
 
 
 def message():

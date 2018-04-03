@@ -109,3 +109,146 @@ class Servant(db.Model):
                 completed += 1
 
         return completed
+
+    @staticmethod
+    def validate(data):
+        """
+        输入数据验证
+        :param dict data:
+        :return: bool, dict
+        """
+        is_valid = True
+        errors = {}
+
+        return is_valid, errors
+    
+    def edit(self, data):
+        """
+        基本信息更新
+        :param dict data: 
+        :return: self
+        """
+        if 'name' in data:
+            self.name = data['name']
+
+        if 'name_jp' in data:
+            self.name_jp = data['name_jp']
+
+        if 'name_en' in data:
+            self.name_en = data['name_en']
+
+        if 'class_id' in data:
+            self.class_id = data['class_id']
+
+        if 'star' in data:
+            self.star = data['star']
+
+        if 'cost' in data:
+            self.cost = data['cost']
+
+        if 'attribute_id' in data:
+            self.attribute_id = data['attribute_id']
+
+        if 'atk' in data:
+            self.atk = data['atk']
+
+        if 'max_atk' in data:
+            self.max_atk = data['max_atk']
+
+        if 'atk_90' in data:
+            self.atk_90 = data['atk_90']
+
+        if 'atk_100' in data:
+            self.atk_100 = data['atk_100']
+
+        if 'hp' in data:
+            self.hp = data['hp']
+
+        if 'max_hp' in data:
+            self.max_hp = data['max_hp']
+
+        if 'hp_90' in data:
+            self.hp_90 = data['hp_90']
+
+        if 'hp_100' in data:
+            self.hp_100 = data['hp_100']
+
+        if 'quick' in data:
+            self.quick = data['quick']
+
+        if 'arts' in data:
+            self.arts = data['arts']
+
+        if 'buster' in data:
+            self.buster = data['buster']
+
+        if 'hits_quick' in data:
+            self.hits_quick = data['hits_quick']
+
+        if 'hits_arts' in data:
+            self.hits_arts = data['hits_arts']
+
+        if 'hits_buster' in data:
+            self.hits_buster = data['hits_buster']
+
+        if 'hits_ex' in data:
+            self.hits_ex = data['hits_ex']
+
+        if 'illustrator' in data:
+            self.illustrator = data['illustrator']
+
+        if 'cv' in data:
+            self.cv = data['cv']
+
+        if 'alignment' in data:
+            self.alignment = data['alignment']
+
+        if 'gender_id' in data:
+            self.gender_id = data['gender_id']
+
+        if 'region' in data:
+            self.region = data['region']
+
+        if 'height' in data:
+            self.height = data['height']
+
+        if 'weight' in data:
+            self.weight = data['weight']
+
+        if 'crit_generation' in data:
+            self.crit_generation = data['crit_generation']
+
+        if 'death_rate' in data:
+            self.death_rate = data['death_rate']
+
+        if 'crit_absorption' in data:
+            self.crit_absorption = data['crit_absorption']
+
+        if 'np_charge_quick' in data:
+            self.np_charge_quick = data['np_charge_quick']
+
+        if 'np_charge_arts' in data:
+            self.np_charge_arts = data['np_charge_arts']
+
+        if 'np_charge_buster' in data:
+            self.np_charge_buster = data['np_charge_buster']
+
+        if 'np_charge_ex' in data:
+            self.np_charge_ex = data['np_charge_ex']
+
+        if 'np_charge_np' in data:
+            self.np_charge_np = data['np_charge_np']
+
+        if 'np_charge_def' in data:
+            self.np_charge_def = data['np_charge_def']
+
+        if 'origin' in data:
+            self.origin = data['origin']
+
+        if 'growth_curve' in data:
+            self.growth_curve = data['growth_curve']
+
+        db.session.add(self)
+        db.session.commit()
+
+        return self

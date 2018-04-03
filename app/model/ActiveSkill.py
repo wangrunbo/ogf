@@ -22,3 +22,15 @@ class ActiveSkill(db.Model):
 
     def __repr__(self):
         return '<%s%s %d: %s>' % (self.__class__.__name__, '(%s)' % self.__doc__ if self.__doc__ is not None else str(), self.id, self.name)
+
+    @staticmethod
+    def validate(data):
+        """
+        输入数据验证
+        :param dict data:
+        :return: bool, dict
+        """
+        is_valid = True
+        errors = {}
+
+        return is_valid, errors

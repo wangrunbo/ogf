@@ -7,7 +7,7 @@ from flask import Blueprint, request, render_template, redirect, url_for, json
 from app import db
 from app.model import *
 from app.util import validator
-from app.util.components import console_out
+from app.util.wrapper import console_out
 import path
 
 admin = Blueprint('admin', __name__)
@@ -57,39 +57,97 @@ def servant_upload_icon(servant_id):
     return 'servant upload icon'
 
 
-@admin.route('/servants/<servant_id>/edit/basic', methods=['POST'])
+@admin.route('/servants/basic/<servant_id>/edit', methods=['POST'])
 def servant_edit_basic(servant_id):
     servant = Servant.query.get_or_404(servant_id)
-    data = {
-        'name': request.form('name'),
-        'name_jp': request.form('name_jp'),
-        'name_en': request.form('name_en'),
-        'class_id': request.form('class_id'),
-        'star': request.form('star'),
-        'cost': request.form('cost'),
-        'attribute_id': request.form('attribute_id'),
-        'atk': request.form('atk'),
-        'max_atk': request.form('max_atk'),
-        'atk_90': request.form('atk_90'),
-        'atk_100': request.form('atk_100'),
-        'hp': request.form('hp'),
-        'max_hp': request.form('max_hp'),
-        'hp_90': request.form('hp_90'),
-        'hp_100': request.form('hp_100'),
-        'quick': request.form('quick'),
-        'arts': request.form('arts'),
-        'buster': request.form('buster'),
-        'hits_quick': request.form('hits_quick'),
-        'hits_arts': request.form('hits_arts'),
-        'hits_buster': request.form('hits_buster'),
-        'hits_ex': request.form('hits_ex'),
-        'illustrator': request.form('illustrator'),
-        'cv': request.form('cv'),
-    }
 
-    # TODO validation
+    data = request.form
 
-    return redirect(url_for('admin.servant_edit', servant_id=servant_id), 200)
+    is_valid, validation_errors = Servant.validate(data)
+
+    if not is_valid:
+        return json.jsonify(validation_errors)
+
+    servant.edit(data)
+
+    return json.jsonify(True)
+
+
+@admin.route('/servants/stage_lv/<servant_id>/edit', methods=['POST'])
+def servant_edit_stage_lv(servant_id):
+    data = request.form
+
+    if type(data) is not list:
+        data = [data]
+
+    is_valid, validation_errors = StageLv.validate(data)
+
+    if not is_valid:
+        return json.jsonify(validation_errors)
+
+    StageLv.edit(data, servant_id)
+
+    return json.jsonify(True)
+
+
+@admin.route('/servants/stage_lv/<stage_lv_id>/delete', methods=['POST'])
+def servant_delete_stage_lv(stage_lv_id):
+    stage_lv = StageLv.query.get_or_404(stage_lv_id)
+
+    stage_lv.delete()
+
+    return json.jsonify(True)
+
+
+@admin.route('/servants/skill_lv/<servant_id>/edit', methods=['POST'])
+def servant_edit_skill_lv(servant_id):
+    data = request.form
+
+    if type(data) is not list:
+        data = [data]
+
+    is_valid, validation_errors = SkillLv.validate(data)
+
+    if not is_valid:
+        return json.jsonify(validation_errors)
+
+    SkillLv.edit(data, servant_id)
+
+    return json.jsonify(True)
+
+
+@admin.route('/servants/skill_lv/<skill_lv_id>/delete', methods=['POST'])
+def servant_delete_skill_lv(skill_lv_id):
+    skill_lv = SkillLv.query.get_or_404(skill_lv_id)
+
+    skill_lv.delete()
+
+    return json.jsonify(True)
+
+
+@admin.route('/servants/active_skill/<servant_id>/edit', methods=['POST'])
+def servant_edit_active_skill(servant_id):
+    data = request.form
+
+    if type(data) is not list:
+        data = [data]
+
+    is_valid, validation_errors = ActiveSkill.validate(data)
+
+    if not is_valid:
+        return json.jsonify(validation_errors)
+
+    ActiveSkill.edit(data, servant_id)
+
+    return json.jsonify(True)
+
+
+def servant_delete_skill_effect(skill_effect_id):
+    skill_effect = SkillEffect.query.get_or_404(skill_effect_id)
+
+    skill_effect.delete()
+
+    return json.jsonify(True)
 
 
 @admin.route('/craft-essence/')

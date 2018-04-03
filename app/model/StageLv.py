@@ -21,3 +21,35 @@ class StageLv(db.Model):
 
     def __repr__(self):
         return '<%s%s %d: %s>' % (self.__class__.__name__, '(%s)' % self.__doc__ if self.__doc__ is not None else str(), self.id, '%s 阶段 %d' % (self.servant.name, self.stage))
+
+    @staticmethod
+    def validate(data):
+        """
+        输入数据验证
+        :param dict data:
+        :return: bool, dict
+        """
+        is_valid = True
+        errors = {}
+
+        return is_valid, errors
+
+    @classmethod
+    def edit(cls, data, servant_id):
+        for stage_lv_data in data:
+            stage_lv = \
+                cls.query.filter_by(servant_id=servant_id, stage=stage_lv_data['stage'], item_id=stage_lv_data['item_id']).first() \
+                or cls(servant_id=servant_id, stage=stage_lv_data['stage'], item_id=stage_lv_data['item_id'], quantity=stage_lv_data['quantity'])
+
+            stage_lv.quantity = stage_lv_data['quantity']
+
+            db.session.add(stage_lv)
+
+        db.session.commit()
+
+    # def delete(self):
+    #     db.session.delete(self)
+    #
+    #     db.session.commit()
+    #
+    #     return self
