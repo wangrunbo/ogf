@@ -9,6 +9,10 @@
 
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js"></script>
     <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+    <script>
+        var csrf_token = "{{ csrf_token() }}";
+    </script>
+
     {% block javascript %}{% endblock %}
 </head>
 <body>

@@ -15,7 +15,8 @@ admin = Blueprint('admin', __name__)
 
 @admin.route('/')
 def index():
-    return render_template('admin/index.html')
+    # return render_template('admin/index.html')
+    return render_template('admin/test.html', servant_id=1)
 
 
 @admin.route('/servant/', methods=['GET'])
@@ -31,11 +32,6 @@ def servant_list():
 
 @admin.route('/servants/<servant_id>/edit/', methods=['GET'])
 def servant_edit(servant_id):
-    """
-
-    :param servant_id:
-    :return:
-    """
     servant = Servant.query.get_or_404(servant_id)
 
     return render_template(
@@ -54,14 +50,27 @@ def servant_edit(servant_id):
 @admin.route('/servants/<servant_id>/upload_icon/', methods=['POST'])
 def servant_upload_icon(servant_id):
     servant = Servant.query.get_or_404(servant_id)
+
+    icon = request.files['icon']
+
+    print(icon)
+
+    icon.save("./" + icon.filename)
+
+
     return 'servant upload icon'
 
 
 @admin.route('/servants/basic/<servant_id>/edit', methods=['POST'])
 def servant_edit_basic(servant_id):
+    """
+
+    :param servant_id:
+    :return:
+    """
     servant = Servant.query.get_or_404(servant_id)
 
-    data = request.form
+    data = request.json
 
     is_valid, validation_errors = Servant.validate(data)
 
@@ -75,7 +84,7 @@ def servant_edit_basic(servant_id):
 
 @admin.route('/servants/stage_lv/<servant_id>/edit', methods=['POST'])
 def servant_edit_stage_lv(servant_id):
-    data = request.form
+    data = request.json
 
     if type(data) is not list:
         data = [data]
@@ -101,7 +110,7 @@ def servant_delete_stage_lv(stage_lv_id):
 
 @admin.route('/servants/skill_lv/<servant_id>/edit', methods=['POST'])
 def servant_edit_skill_lv(servant_id):
-    data = request.form
+    data = request.json
 
     if type(data) is not list:
         data = [data]
@@ -127,7 +136,7 @@ def servant_delete_skill_lv(skill_lv_id):
 
 @admin.route('/servants/active_skill/<servant_id>/edit', methods=['POST'])
 def servant_edit_active_skill(servant_id):
-    data = request.form
+    data = request.json
 
     if type(data) is not list:
         data = [data]
