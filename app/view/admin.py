@@ -7,7 +7,7 @@ from flask import Blueprint, request, render_template, redirect, url_for, json
 from app import db
 from app.model import *
 from app.util import validator
-from app.util.wrapper import console_out
+from app.util.wrapper import response_json, console_out
 import path
 
 admin = Blueprint('admin', __name__)
@@ -53,12 +53,14 @@ def servant_upload_icon(servant_id):
 
     icon = request.files['icon']
 
-    print(icon)
+    is_valid, validation_errors = Servant.validate({'icon': icon})
 
-    icon.save("./" + icon.filename)
+    if not is_valid:
+        return response_json(False, validation_errors)
 
+    servant.update_icon(icon)
 
-    return 'servant upload icon'
+    return response_json(True, {'icon': servant.icon})
 
 
 @admin.route('/servants/basic/<servant_id>/edit', methods=['POST'])

@@ -111,7 +111,7 @@ class Servant(db.Model):
         return completed
 
     @staticmethod
-    def validate(data):
+    def validate(data, is_new=False):
         """
         输入数据验证
         :param dict data:
@@ -145,6 +145,9 @@ class Servant(db.Model):
 
         if 'cost' in data:
             self.cost = data['cost']
+
+        if 'icon' in data:
+            self.cost = data['icon']
 
         if 'attribute_id' in data:
             self.attribute_id = data['attribute_id']
@@ -250,5 +253,31 @@ class Servant(db.Model):
 
         db.session.add(self)
         db.session.commit()
+
+        return self
+
+    def update_icon(self, icon):
+        import os
+        from flask import url_for
+        from path import DIR_NAME, SERVANT_ICON
+        from setting import IMAGE_TYPES
+
+        icon_name = str(self.id) + '.' + IMAGE_TYPES['SERVANT_ICON']
+        icon_path = url_for('static', filename=DIR_NAME['IMAGE']['SERVANT_ICON'] + '/' + icon_name)
+
+        if self.icon == icon_path:
+            icon.save(os.path.join(SERVANT_ICON, icon_name))
+        else:
+            try:
+                self.icon = icon_path
+
+                db.session.add(self)
+
+                icon.save(os.path.join(SERVANT_ICON, icon_name))
+            except Exception:
+                db.session.rollback()
+                raise
+            else:
+                db.session.commit()
 
         return self

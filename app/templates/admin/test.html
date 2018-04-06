@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>テスト</title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js"></script>
+    <script src="{{ url_for('static', filename='lib/jQuery-File-Upload-9.21.0/js/vendor/jquery.ui.widget.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/jQuery-File-Upload-9.21.0/js/jquery.fileupload.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/jQuery-File-Upload-9.21.0/js/jquery.iframe-transport.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/test.js') }}"></script>
+    <script>
+        var csrf_token = "{{ csrf_token() }}";
+
+        var url = {
+            upload_icon: "{{ url_for('admin.servant_upload_icon', servant_id=servant_id) }}",
+            edit_basic: "{{ url_for('admin.servant_edit_basic', servant_id=servant_id) }}",
+            edit_stage_lv: "{{ url_for('admin.servant_edit_stage_lv', servant_id=servant_id) }}"
+        };
+    </script>
+</head>
+<body>
+{#    <input id="input" name="up" type="text" placeholder="up" />#}
+{#    <input id="input_1" name="up" type="text" placeholder="up_1" />#}
+
+    <label class="fileupload">
+        <input name="icon" type="file" hidden />
+        <span>up</span>
+    </label>
+{#    <button id="sub" type="button">submit</button>#}
+</body>
+</html>

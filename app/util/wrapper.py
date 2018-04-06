@@ -1,4 +1,18 @@
 from threading import Thread
+from flask import jsonify
+
+
+def response_json(success, data):
+    """
+    Ajax response
+    :param bool success:
+    :param dict data:
+    :return: json
+    """
+    return jsonify({
+        'success': success,
+        'data': data
+    })
 
 
 def async(f):

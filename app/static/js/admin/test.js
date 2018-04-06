@@ -4,25 +4,9 @@ $(function () {
 });
 
 function test_post() {
-    $("#sub").click(function () {
-        var value = $("#input").val();
-        var value_1 = $("#input_1").val();
-
-        $.ajax({
-            url: url.edit_basic,
-            data: JSON.stringify({
-                'name': value,
-                'star': value_1
-            }),
-            dataType: 'json'
-        }).done(function (result) {
-            console.log(result);
-            console.log(typeof result);
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
-        });
+    $(".fileupload").fileupload({
+        url: url.upload_icon,
+        dropZone: null,
     });
 }
 

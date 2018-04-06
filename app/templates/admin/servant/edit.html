@@ -3,9 +3,15 @@
 {% block title %}英灵 | {{ servant.name }}{% endblock %}
 
 {% block javascript %}
-    <script type="application/javascript">
-        var stage_lv = {
-
+    <script src="{{ url_for('static', filename='lib/jQuery-File-Upload-9.21.0/js/vendor/jquery.ui.widget.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/jQuery-File-Upload-9.21.0/js/jquery.fileupload.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/jQuery-File-Upload-9.21.0/js/jquery.iframe-transport.js') }}"></script>
+    <script>
+        var servant_id = {{ servant_id }};
+        var url = {
+            upload_icon: "{{ url_for('admin.servant_upload_icon', servant_id=servant_id) }}",
+            edit_basic: "{{ url_for('admin.servant_edit_basic', servant_id=servant_id) }}",
+            edit_stage_lv: "{{ url_for('admin.servant_edit_stage_lv', servant_id=servant_id) }}"
         };
     </script>
 {% endblock %}
@@ -16,11 +22,11 @@
 <div class="sidebar">
     {# 英灵头像 #}
     <div id="icon">
-        <div><img src="{{ servant.icon }}" /></div>
-{#        <form method="post" action="{{ url_for('admin.servant_upload_icon', servant_id=servant.id) }}">#}
-{#            <input name="icon" type="file" />#}
-{#            <button type="button">上传</button>#}
-{#        </form>#}
+        <div id="icon-image"><img src="{{ servant.icon }}" alt="{{ servant.name }}" /></div>
+        <label id="icon-upload">
+            <input name="icon" type="file" />
+            上传
+        </label>
     </div>
 
     <div class="menu">

@@ -27,4 +27,3 @@ MAIL_MAX_EMAILS = None
 
 # Config
 TOKEN_SALT = 'QokRn0cWdaYyF9HWGDFKssHPjSJhaBZ5mdS-U3eCwt2OLphVTKz7BUrsjPjenUy88wLnojITvX-EDR3FCyjA'
-ALLOW_IMAGE_TYPES = {'png', 'jpg', 'jpeg'}
