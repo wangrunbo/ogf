@@ -49,6 +49,11 @@ def servant_edit(servant_id):
 
 @admin.route('/servants/<servant_id>/upload_icon/', methods=['POST'])
 def servant_upload_icon(servant_id):
+    """
+
+    :param servant_id:
+    :return:
+    """
     servant = Servant.query.get_or_404(servant_id)
 
     icon = request.files['icon']
@@ -153,12 +158,18 @@ def servant_edit_active_skill(servant_id):
     return json.jsonify(True)
 
 
+@admin.route('/servants/skill_effect/<skill_effect_id>/delete', methods=['POST'])
 def servant_delete_skill_effect(skill_effect_id):
     skill_effect = SkillEffect.query.get_or_404(skill_effect_id)
 
     skill_effect.delete()
 
     return json.jsonify(True)
+
+
+@admin.route('/servants/passive_skill/<servant_id>')
+def servant_edit_passive_skill(servant_id):
+    pass
 
 
 @admin.route('/craft-essence/')
