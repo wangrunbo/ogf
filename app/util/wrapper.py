@@ -2,7 +2,7 @@ from threading import Thread
 from flask import jsonify
 
 
-def response_json(success, data):
+def response_json(success, data=None):
     """
     Ajax response
     :param bool success:

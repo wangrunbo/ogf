@@ -82,11 +82,11 @@ def servant_edit_basic(servant_id):
     is_valid, validation_errors = Servant.validate(data)
 
     if not is_valid:
-        return json.jsonify(validation_errors)
+        return response_json(False, validation_errors)
 
     servant.edit(data)
 
-    return json.jsonify(True)
+    return response_json(True)
 
 
 @admin.route('/servants/stage_lv/<servant_id>/edit', methods=['POST'])
@@ -99,11 +99,11 @@ def servant_edit_stage_lv(servant_id):
     is_valid, validation_errors = StageLv.validate(data)
 
     if not is_valid:
-        return json.jsonify(validation_errors)
+        return response_json(False, validation_errors)
 
     StageLv.edit(data, servant_id)
 
-    return json.jsonify(True)
+    return response_json(True)
 
 
 @admin.route('/servants/stage_lv/<stage_lv_id>/delete', methods=['POST'])
@@ -112,7 +112,7 @@ def servant_delete_stage_lv(stage_lv_id):
 
     stage_lv.delete()
 
-    return json.jsonify(True)
+    return response_json(True)
 
 
 @admin.route('/servants/skill_lv/<servant_id>/edit', methods=['POST'])
@@ -125,11 +125,11 @@ def servant_edit_skill_lv(servant_id):
     is_valid, validation_errors = SkillLv.validate(data)
 
     if not is_valid:
-        return json.jsonify(validation_errors)
+        return response_json(False, validation_errors)
 
     SkillLv.edit(data, servant_id)
 
-    return json.jsonify(True)
+    return response_json(True)
 
 
 @admin.route('/servants/skill_lv/<skill_lv_id>/delete', methods=['POST'])
@@ -138,24 +138,21 @@ def servant_delete_skill_lv(skill_lv_id):
 
     skill_lv.delete()
 
-    return json.jsonify(True)
+    return response_json(True)
 
 
 @admin.route('/servants/active_skill/<servant_id>/edit', methods=['POST'])
 def servant_edit_active_skill(servant_id):
     data = request.json
 
-    if type(data) is not list:
-        data = [data]
-
     is_valid, validation_errors = ActiveSkill.validate(data)
 
     if not is_valid:
-        return json.jsonify(validation_errors)
+        return response_json(False, validation_errors)
 
     ActiveSkill.edit(data, servant_id)
 
-    return json.jsonify(True)
+    return response_json(True)
 
 
 @admin.route('/servants/skill_effect/<skill_effect_id>/delete', methods=['POST'])
@@ -164,12 +161,21 @@ def servant_delete_skill_effect(skill_effect_id):
 
     skill_effect.delete()
 
-    return json.jsonify(True)
+    return response_json(True)
 
 
-@admin.route('/servants/passive_skill/<servant_id>')
+@admin.route('/servants/passive_skill/<servant_id>/edit', methods=['POST'])
 def servant_edit_passive_skill(servant_id):
-    pass
+    data = request.json
+
+    is_valid, validation_errors = PassiveSkill.validate(data)
+
+    if not is_valid:
+        return response_json(False, validation_errors)
+
+    PassiveSkill.edit(data, servant_id)
+
+    return response_json(True)
 
 
 @admin.route('/craft-essence/')

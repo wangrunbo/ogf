@@ -29,3 +29,7 @@ class SkillEffect(db.Model):
 
     def __repr__(self):
         return '<%s%s %d: %s>' % (self.__class__.__name__, '(%s)' % self.__doc__ if self.__doc__ is not None else str(), self.id, self.effect)
+
+    @classmethod
+    def next_sort(cls, active_skill_id):
+        return cls.query.filter_by(active_skill_id=active_skill_id).count() + 1

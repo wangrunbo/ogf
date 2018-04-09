@@ -1,4 +1,5 @@
 from app import db
+from .SkillEffect import SkillEffect
 
 
 class ActiveSkill(db.Model):
@@ -23,11 +24,15 @@ class ActiveSkill(db.Model):
     def __repr__(self):
         return '<%s%s %d: %s>' % (self.__class__.__name__, '(%s)' % self.__doc__ if self.__doc__ is not None else str(), self.id, self.name)
 
+    @classmethod
+    def next_sort(cls, servant_id):
+        return cls.query.filter_by(servant_id=servant_id).count() + 1
+
     @staticmethod
     def validate(data):
         """
         输入数据验证
-        :param dict data:
+        :param dict|list data:
         :return: bool, dict
         """
         is_valid = True
@@ -37,9 +42,23 @@ class ActiveSkill(db.Model):
 
     @classmethod
     def edit(cls, data, servant_id):
+        """
+
+        :param dict|list  data:
+        :param servant_id:
+        :return:
+        """
+        multiple = type(data) is list
+
+        if not multiple:
+            data = [data]
+
         for sort, active_skill_data in enumerate(data, start=1):
             if active_skill_data['id'] is None:
                 active_skill = cls(servant_id=servant_id)
+
+                if not multiple:
+                    active_skill.sort = cls.next_sort(servant_id)
             else:
                 active_skill = cls.query.get_or_404(active_skill_data['id'])
 
@@ -55,12 +74,35 @@ class ActiveSkill(db.Model):
             if 'icon' in active_skill_data:
                 active_skill.icon = active_skill_data['icon']
 
-            if len(data) > 1:
+            if multiple:
                 active_skill.sort = sort
 
             if 'effects' in active_skill_data:
-                for skill_effect_data in active_skill_data['effects']:
+                for sort, skill_effect_data in enumerate(active_skill_data['effects'], start=1):
+                    if skill_effect_data['id'] is None:
+                        skill_effect = SkillEffect(active_skill=active_skill)
 
+                        if len(active_skill_data['effects']) == 1:
+                            skill_effect.sort = SkillEffect.next_sort(active_skill)
+                    else:
+                        skill_effect = SkillEffect.query.get_or_404()
+
+                    skill_effect.effect = skill_effect_data['skill']
+                    skill_effect.lv1 = skill_effect_data['lv1']
+                    skill_effect.lv2 = skill_effect_data['lv2']
+                    skill_effect.lv3 = skill_effect_data['lv3']
+                    skill_effect.lv4 = skill_effect_data['lv4']
+                    skill_effect.lv5 = skill_effect_data['lv5']
+                    skill_effect.lv6 = skill_effect_data['lv6']
+                    skill_effect.lv7 = skill_effect_data['lv7']
+                    skill_effect.lv8 = skill_effect_data['lv8']
+                    skill_effect.lv9 = skill_effect_data['lv9']
+                    skill_effect.lv10 = skill_effect_data['lv10']
+
+                    if len(active_skill_data['effects']) > 1:
+                        skill_effect.sort = sort
+
+                    db.session.add(skill_effect)
 
             db.session.add(active_skill)
 
